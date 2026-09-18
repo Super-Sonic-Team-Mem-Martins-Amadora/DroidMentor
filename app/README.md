@@ -1,0 +1,3 @@
+- Ricardo Martins (SOULSLIKE KING) - 52326
+- Manuel Abreu (NÃO TERMINOU ELDEN RING) - 52487
+- Maximus Delorey (DESISTIU DA DLC) - 52506
