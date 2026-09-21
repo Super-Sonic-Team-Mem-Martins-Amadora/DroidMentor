@@ -21,12 +21,11 @@ The list below represents the major technologies used in the development of the 
 [![SQLite](https://skillicons.dev/icons?i=sqlite&theme=dark)](https://sqlite.org/index.html)
 
 # Group Members
-|Name|Number|
-|:---|:----:|
-|[Ricardo Martins](a52326@alunos.isel.pt)|52326|
-|[Manuel Abreu](a52487@alunos.isel.pt)|52487|
-|[Maximus Delorey](a52506@alunos.isel.pt)|52506|
-
+|                  Name                  |Number|
+|:---------------------------------------|:----:|
+|[Ricardo Martins](a52326@alunos.isel.pt)| 52326|
+|[Manuel Abreu](a52487@alunos.isel.pt)   | 52487|
+|[Maximus Delorey](a52506@alunos.isel.pt)| 52506|
 
 # Summary
 
@@ -41,7 +40,6 @@ The list below represents the major technologies used in the development of the 
 - Gemini API
 - (Room / SQLite) Storage
 - (DataStore) User Credentials
-
 
 # Application Flowchart
 
@@ -90,7 +88,6 @@ B[All Chats] --Open Chat/New Chat-->  A[Chat]
 
 <hr>
 
-
 ### Core
 
 ```mermaid
@@ -102,7 +99,7 @@ subgraph Core["Core"]
     A[Chat Services]
     B[Chat Repository]
 
-    C[AI Services]
+    C["AI Services (Maybe)"]
     D[AI Repository]
 
     E[Settings Services]
@@ -121,7 +118,6 @@ end
 ```
 
 <hr>
-
 ### External Services 
 
 ```mermaid
@@ -146,21 +142,50 @@ D --> E
 
 # Milestones
 
-### Week 1
-- UI Framework Shell
-
-### Week 2
+### Week 1-2
 - Backend Core - Services Framework
+Verifications of the data provided by the UI
+- Backend Core - Repositories Framework:
+    - **DB**
+        - Chats
+        - Settings
+        - User
+    - **API**
+        - AI
+- Database architecturing and concept
+- Start of Database development
+- Domain and DTO definition
+- Researching the GEMINI API
 
-### Week 3
-- Backend Core - Repositories Framework
+### Week 3-4
+- Continuing development of Services Framework and Repositories Framework
+- Initial concepts and mocks of all UX/UI
+- Begining the development of the UX/UI
+- Database development and configuration
 
+### Week 5-6
+- Continuing development of Services Framework and Repositories Framework
+- Continuing development of the UX/UI
+- Continuing Database development and configuration
+
+### Week 7-8
+- Continuing development of Services Framework and Repositories Framework
+- Continuing development of the UX/UI
+
+### Week 9-10
+- Refactoring of needed code
+- Continuing development of Services Framework and Repositories Framework
+- Continuing development of the UX/UI
+
+### Week 11
+- Refinement and polishing final code
+- Assignment completion
 
 # Database
 
-Entities
+**Entities**
 - Chats
 - Messages
 - Users
-- UI Settings
-- Settings
+
+![DB Diagram](db_diagram.png)
