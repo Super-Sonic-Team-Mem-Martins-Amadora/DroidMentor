@@ -1,6 +1,5 @@
-package com.example.droidmentor.ui.theme
+package com.example.droidmentor.UI.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -1,4 +1,4 @@
-package com.example.droidmentor.ui.theme
+package com.example.droidmentor.UI.theme
 
 import androidx.compose.ui.graphics.Color
 
