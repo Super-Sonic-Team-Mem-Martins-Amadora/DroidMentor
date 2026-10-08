@@ -190,3 +190,7 @@ Verifications of the data provided by the UI
 - Users
 
 ![DB Diagram](db_diagram.png)
+
+# Screns Mockups
+
+![Screens Mockups](DroidMentor.png)
