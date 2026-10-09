@@ -1,4 +1,4 @@
-package com.example.droidmentor.UI.theme
+package com.example.droidmentor.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
