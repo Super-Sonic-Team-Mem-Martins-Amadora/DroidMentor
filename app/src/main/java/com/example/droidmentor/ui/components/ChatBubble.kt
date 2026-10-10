@@ -88,7 +88,7 @@ fun ChatBubble(
                 if (hasText) {
                     Text(
                         text = content,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                     )
                 }
