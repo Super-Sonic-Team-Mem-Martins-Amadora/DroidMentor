@@ -1,10 +1,16 @@
 package com.example.droidmentor.ui.components
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,6 +29,24 @@ import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 private val ChatBubbleShapeAI = RoundedCornerShape(0.dp, 20.dp, 20.dp, 20.dp)
 private val ChatBubbleShapeMe = RoundedCornerShape(20.dp, 0.dp, 20.dp, 20.dp)
+
+
+@Composable
+fun Loading() {
+    Row(
+        modifier = Modifier.padding(top = 4.dp)
+    ) {
+        Spacer(modifier = Modifier.width(8.dp))
+        Box(
+            modifier = Modifier.background(color = Color.Gray).padding(8.dp)
+        )
+        Text(
+            modifier = Modifier.padding(start = 4.dp),
+            text = "Loading...",
+            style = MaterialTheme.typography.bodySmall
+        )
+    }
+}
 
 @Composable
 fun ChatBubble(
@@ -66,12 +90,17 @@ fun ChatBubble(
                         text = content,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        overflow = TextOverflow.Visible,
                     )
                 }
             }
         }
-        Loading()
+        if (isLoading) {
+            Loading()
+        } else {
+            if (!isUser) {
+
+            }
+        }
     }
 }
 
