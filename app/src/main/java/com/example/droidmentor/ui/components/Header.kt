@@ -67,7 +67,7 @@ fun HeaderPreview(){
                         DroidIcon(
                             iconFile = R.drawable.back,
                             iconDesc = "Back",
-                            iconSize = 24.dp,
+                            iconSize = 24.dp
                         )
                     },
                     onClick = {},

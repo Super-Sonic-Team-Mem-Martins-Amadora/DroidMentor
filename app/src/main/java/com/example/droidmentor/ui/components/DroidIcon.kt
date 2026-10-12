@@ -33,9 +33,10 @@ fun DroidIcon(
 fun DroidIconPreview(){
     PreviewBox {
         DroidIcon(
-            iconFile = R.drawable.back,
+            iconFile = R.drawable.logo,
             iconDesc = "Back",
-            iconSize = 24.dp
+            iconSize = 24.dp,
+            tint = Color.Unspecified
         )
     }
 
