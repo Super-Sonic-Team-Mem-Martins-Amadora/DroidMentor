@@ -1,12 +1,18 @@
 package com.example.droidmentor.ui.components
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -16,11 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.droidmentor.R
-import com.example.droidmentor.ui.theme.DroidMentorTheme
+
 
 private val ChatBubbleShapeAI = RoundedCornerShape(0.dp, 20.dp, 20.dp, 20.dp)
 private val ChatBubbleShapeMe = RoundedCornerShape(20.dp, 0.dp, 20.dp, 20.dp)
@@ -54,7 +62,8 @@ fun ChatBubble(
     modifier: Modifier = Modifier,
     author: String? = null,
 ){
-    val haptic = LocalHapticFeedback.current
+    val context = LocalContext.current
+    val clipboard = context.getSystemService(ClipboardManager::class.java)
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
@@ -107,9 +116,41 @@ fun ChatBubble(
         }
         if (isLoading) {
             Loading()
-        } else {
-            if (!isUser) {
+            return
+        }
+        if (canCopy) {
+            Spacer(Modifier.height(3.dp))
+            Row(
+                modifier = Modifier.height(IntrinsicSize.Min)
+            ) {
+                Spacer(Modifier.width(3.dp))
+                IconButton(
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.copy,
+                            iconSize = 25.dp,
+                            iconDesc = "Copy"
+                        )
+                    },
+                    onClick = {
+                        val clip = ClipData.newPlainText("AI Message", content)
+                        clipboard.setPrimaryClip(clip)
+                    },
+                    modifier = Modifier.size(40.dp)
+                )
+                IconButton(
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.refresh,
+                            iconSize = 25.dp,
+                            iconDesc = "Refresh"
+                        )
+                    },
+                    onClick = {
 
+                    },
+                    modifier = Modifier.size(40.dp)
+                )
             }
         }
     }

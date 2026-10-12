@@ -9,9 +9,10 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.example.droidmentor.ui.theme.DarkishGray
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkishGray,
+    primary = LightGray,
     onPrimary = White,
     onSecondary = Black,
     primaryContainer = Blue,
@@ -19,7 +20,8 @@ private val DarkColorScheme = darkColorScheme(
     secondaryContainer = Black,
     background = DarkGray,
     tertiary = Gold,
-    surfaceDim = LightGray
+    surfaceDim = LightGray,
+    tertiaryContainer = DarkishGray
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -31,7 +33,8 @@ private val LightColorScheme = lightColorScheme(
     secondaryContainer = Black,
     background = LightGray,
     tertiary = MetalGold,
-    surfaceDim = Gray
+    surfaceDim = Gray,
+    tertiaryContainer = Blue
 )
 
 @Composable

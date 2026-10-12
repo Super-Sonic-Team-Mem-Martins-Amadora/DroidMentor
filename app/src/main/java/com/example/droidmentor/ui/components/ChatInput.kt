@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +25,7 @@ fun ChatInput(
         border = BorderStroke(3.dp, MaterialTheme.colorScheme.primary),
         modifier = Modifier.fillMaxWidth().height(90.dp)
     ) {
+        //TextField()
         Box(
             modifier = Modifier.padding(14.dp)
         ) {
