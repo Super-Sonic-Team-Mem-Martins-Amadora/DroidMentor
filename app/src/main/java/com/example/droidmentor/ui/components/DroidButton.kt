@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -31,6 +32,7 @@ fun DroidButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    fillMax : Boolean = true,
     icon: @Composable (() -> Unit)? = null,
 ){
     Button(
@@ -39,7 +41,7 @@ fun DroidButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
         ),
-        modifier = modifier,
+        modifier = if (fillMax) modifier.fillMaxWidth() else modifier,
     ){
         if(icon != null){
             icon()
@@ -48,7 +50,10 @@ fun DroidButton(
         }
         Text(
             text = label,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = if(fillMax) TextAlign.Start else TextAlign.End,
+            modifier = if (fillMax) Modifier.weight(1f) else Modifier,
         )
     }
 }
@@ -57,20 +62,22 @@ fun DroidButton(
 @Composable
 fun DroidButtonPreviewIcons() {
     PreviewBox(dark = false) {
-        Row(
+        Column(
             modifier = Modifier.padding(10.dp, 0.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ){
             // Without icon
             DroidButton(
                 label = "No icon",
-                onClick = {}
+                onClick = {},
+                fillMax = false
             )
 
             // With icon
             DroidButton(
                 label = "Icon",
                 onClick = {},
+                fillMax = false,
                 icon = {
                     Box(
                         modifier = Modifier
@@ -98,13 +105,14 @@ fun DroidButtonPreviewfuns() {
                 color = MaterialTheme.colorScheme.onPrimary
             )
             // counter
-            Row(
+            Row (
                 modifier = Modifier.padding(10.dp, 0.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 DroidButton(
                     label = "Counter up",
                     onClick = { count++ },
+                    fillMax = false,
                     icon = {
                         Box(
                             modifier = Modifier
@@ -117,6 +125,7 @@ fun DroidButtonPreviewfuns() {
                 DroidButton(
                     label = "Counter down",
                     onClick = { if (count > 0) count-- },
+                    fillMax = false,
                     icon = {
                         Box(
                             modifier = Modifier
