@@ -59,9 +59,15 @@ fun ChatBubble(
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
+<<<<<<< Updated upstream
         MaterialTheme.colorScheme.inversePrimary
     } else {
         MaterialTheme.colorScheme.primaryContainer
+=======
+        MaterialTheme.colorScheme.primaryContainer
+    } else {
+        MaterialTheme.colorScheme.secondaryContainer
+>>>>>>> Stashed changes
     }
     val borderBubbleColor = if (isUser) {
         MaterialTheme.colorScheme.primaryContainer
@@ -89,7 +95,7 @@ fun ChatBubble(
                     Text(
                         text = content,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        color = MaterialTheme.colorScheme.onPrimary,
                     )
                 }
             }
@@ -109,8 +115,13 @@ fun PreviewBox(content: @Composable () -> Unit) {
     DroidMentorTheme(/*dynamicColor = false*/) {
         Box(
             modifier = Modifier.padding(30.dp)
-        ) {
-            content()
+            ) {
+            Box(
+                modifier = Modifier
+                    .background(color = MaterialTheme.colorScheme.background)
+            ) {
+                content()
+            }
         }
     }
 }
