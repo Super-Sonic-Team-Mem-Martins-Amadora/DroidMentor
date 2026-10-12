@@ -1,6 +1,5 @@
 package com.example.droidmentor.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
-import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 @Composable
 fun Header(
@@ -37,7 +35,7 @@ fun Header(
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(10.dp),
+                .padding(5.dp),
             contentAlignment = Alignment.Center
         ) {
             button()
@@ -49,7 +47,7 @@ fun Header(
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(10.dp),
+                .padding(5.dp),
             contentAlignment = Alignment.Center
         ) {
             icon()
@@ -60,36 +58,29 @@ fun Header(
 @Preview(showBackground = true)
 @Composable
 fun HeaderPreview(){
-    DroidMentorTheme {
-        Box(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.background)
-                .padding(30.dp)
-        ) {
-            Header(
-                title = "Settings",
-                button = {
-                    IconButton(
-                        icon = {
-                            DroidIcon(
-                                iconFile = R.drawable.back,
-                                iconDesc = "Back",
-                                iconSize = 24.dp,
-                            )
-                        },
-                        onClick = {},
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                icon = {
-                    DroidIcon(
-                        iconFile = R.drawable.settings,
-                        iconDesc = "Settings",
-                        iconSize = 24.dp
-                    )
-                }
-            )
-        }
-
+    PreviewBox(padding = 20.dp) {
+        Header(
+            title = "Settings",
+            button = {
+                IconButton(
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.back,
+                            iconDesc = "Back",
+                            iconSize = 24.dp,
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.size(48.dp)
+                )
+            },
+            icon = {
+                DroidIcon(
+                    iconFile = R.drawable.settings,
+                    iconDesc = "Settings",
+                    iconSize = 24.dp
+                )
+            }
+        )
     }
 }

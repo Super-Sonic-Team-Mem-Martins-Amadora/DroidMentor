@@ -7,7 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.example.droidmentor.R
 
 @Composable
 fun DroidIcon(
@@ -23,4 +26,17 @@ fun DroidIcon(
         tint = tint ?: MaterialTheme.colorScheme.onPrimary,
         modifier = modifier.size(iconSize)
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DroidIconPreview(){
+    PreviewBox {
+        DroidIcon(
+            iconFile = R.drawable.back,
+            iconDesc = "Back",
+            iconSize = 24.dp
+        )
+    }
+
 }
