@@ -18,11 +18,10 @@ fun DroidIcon(
     iconDesc: String? = null,
     modifier: Modifier = Modifier
 ){
-    val dark = isSystemInDarkTheme()
     Icon(
         painter = painterResource(id = iconFile),
         contentDescription = iconDesc,
-        tint = tint ?: if(dark) MaterialTheme.colorScheme.primary else Color.Unspecified,
+        tint = tint ?: MaterialTheme.colorScheme.onPrimary,
         modifier = modifier.size(iconSize)
     )
 }
