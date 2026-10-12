@@ -118,7 +118,7 @@ fun ChatBubble(
 @Preview
 @Composable
 fun UserChatBubblePreview() {
-    PreviewBox {
+    PreviewBox(dark = true) {
         ChatBubble(
             author = "User",
             content = "This is a preview User chat message!",
