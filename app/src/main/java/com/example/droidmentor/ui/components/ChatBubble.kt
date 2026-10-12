@@ -59,12 +59,12 @@ fun ChatBubble(
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.secondary
+        MaterialTheme.colorScheme.inversePrimary
     } else {
-        MaterialTheme.colorScheme.primary
+        MaterialTheme.colorScheme.primaryContainer
     }
     val borderBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.primary
+        MaterialTheme.colorScheme.primaryContainer
     } else {
         MaterialTheme.colorScheme.inversePrimary
     }
@@ -106,7 +106,7 @@ fun ChatBubble(
 
 @Composable
 fun PreviewBox(content: @Composable () -> Unit) {
-    DroidMentorTheme {
+    DroidMentorTheme(/*dynamicColor = false*/) {
         Box(
             modifier = Modifier.padding(30.dp)
         ) {
