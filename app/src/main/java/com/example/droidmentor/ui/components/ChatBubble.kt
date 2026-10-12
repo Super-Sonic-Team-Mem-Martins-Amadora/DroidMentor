@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.droidmentor.R
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 private val ChatBubbleShapeAI = RoundedCornerShape(0.dp, 20.dp, 20.dp, 20.dp)
@@ -37,13 +38,15 @@ fun Loading() {
         modifier = Modifier.padding(top = 4.dp)
     ) {
         Spacer(modifier = Modifier.width(8.dp))
-        Box(
-            modifier = Modifier.background(color = Color.Gray).padding(8.dp)
+        DroidIcon(
+            iconFile = R.drawable.loading,
+            iconSize = 16.dp
         )
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = "Loading...",
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.tertiary
         )
     }
 }
@@ -59,20 +62,20 @@ fun ChatBubble(
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
-<<<<<<< Updated upstream
-        MaterialTheme.colorScheme.inversePrimary
-    } else {
-        MaterialTheme.colorScheme.primaryContainer
-=======
         MaterialTheme.colorScheme.primaryContainer
     } else {
         MaterialTheme.colorScheme.secondaryContainer
->>>>>>> Stashed changes
     }
     val borderBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.primaryContainer
+        MaterialTheme.colorScheme.primary
     } else {
-        MaterialTheme.colorScheme.inversePrimary
+        MaterialTheme.colorScheme.secondary
+    }
+
+    val textBubbleColor = if (isUser) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.primaryContainer
     }
     val bubbleShape = if (isUser) ChatBubbleShapeMe else ChatBubbleShapeAI
 
@@ -95,7 +98,7 @@ fun ChatBubble(
                     Text(
                         text = content,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = textBubbleColor,
                     )
                 }
             }
