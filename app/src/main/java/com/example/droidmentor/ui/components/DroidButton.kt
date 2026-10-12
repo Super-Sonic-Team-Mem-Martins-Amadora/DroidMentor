@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 @Composable
 fun DroidButton(
@@ -48,7 +49,7 @@ fun DroidButton(
 fun DroidButtonPreview() {
     var count by remember { mutableIntStateOf(0) }
 
-    MaterialTheme {
+    DroidMentorTheme {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
