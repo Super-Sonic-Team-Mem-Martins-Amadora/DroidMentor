@@ -1,5 +1,7 @@
 package com.example.droidmentor.ui.components
 
+import android.R
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +35,10 @@ fun DroidButton(
 ){
     Button(
         onClick = onClick,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+        ),
         modifier = modifier,
     ) {
         if(icon != null){
@@ -40,76 +46,79 @@ fun DroidButton(
             //spacing between icon ant text
             Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
         }
-        Text(label)
+        Text(
+            text = label,
+            color = MaterialTheme.colorScheme.onPrimary
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DroidButtonPreview() {
+fun DroidButtonPreviewIcons() {
+    PreviewBox(dark = false) {
+        Row(
+            modifier = Modifier.padding(10.dp, 0.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ){
+            // Without icon
+            DroidButton(
+                label = "No icon",
+                onClick = {}
+            )
+
+            // With icon
+            DroidButton(
+                label = "Icon",
+                onClick = {},
+                icon = {
+                    Box(
+                        modifier = Modifier
+                            .size(ButtonDefaults.IconSize)
+                            .background(Color.Magenta)
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DroidButtonPreviewfuns() {
     var count by remember { mutableIntStateOf(0) }
 
-    DroidMentorTheme {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+    PreviewBox(dark = true){
+        Column {
+            Text(text = "counter: $count")
+            // counter
             Row(
                 modifier = Modifier.padding(10.dp, 0.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ){
-                // Without icon
+            ) {
                 DroidButton(
-                    label = "No icon",
-                    onClick = {}
-                )
-
-                // With icon
-                DroidButton(
-                    label = "Icon",
-                    onClick = {},
+                    label = "Counter up",
+                    onClick = { count++ },
                     icon = {
                         Box(
                             modifier = Modifier
                                 .size(ButtonDefaults.IconSize)
-                                .background(Color.Magenta)
+                                .background(Color.Green)
                         )
                     }
                 )
-            }
 
-
-            Column{
-                Text(text = "counter: $count")
-                // counter
-                Row(
-                    modifier = Modifier.padding(10.dp, 0.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    DroidButton(
-                        label = "Counter up",
-                        onClick = { count++ },
-                        icon = {
-                            Box(
-                                modifier = Modifier
-                                    .size(ButtonDefaults.IconSize)
-                                    .background(Color.Green)
-                            )
-                        }
-                    )
-
-                    DroidButton(
-                        label = "Counter down",
-                        onClick = { if(count>0) count-- },
-                        icon = {
-                            Box(
-                                modifier = Modifier
-                                    .size(ButtonDefaults.IconSize)
-                                    .background(Color.Red)
-                            )
-                        }
-                    )
-                }
+                DroidButton(
+                    label = "Counter down",
+                    onClick = { if (count > 0) count-- },
+                    icon = {
+                        Box(
+                            modifier = Modifier
+                                .size(ButtonDefaults.IconSize)
+                                .background(Color.Red)
+                        )
+                    }
+                )
             }
         }
     }
