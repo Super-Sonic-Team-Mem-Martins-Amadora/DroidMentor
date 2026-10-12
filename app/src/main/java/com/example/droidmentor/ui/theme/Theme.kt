@@ -19,7 +19,7 @@ private val DarkColorScheme = darkColorScheme(
     secondaryContainer = Black,
     background = DarkGray,
     tertiary = Gold,
-    surfaceDim = Gray
+    surfaceDim = DarkishGray
 )
 
 private val LightColorScheme = lightColorScheme(

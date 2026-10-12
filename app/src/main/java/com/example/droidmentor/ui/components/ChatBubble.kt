@@ -115,7 +115,7 @@ fun ChatBubble(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun UserChatBubblePreview() {
     PreviewBox {
@@ -128,7 +128,7 @@ fun UserChatBubblePreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun LoadingChatBubblePreview() {
     PreviewBox {
@@ -141,7 +141,7 @@ fun LoadingChatBubblePreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun AIChatBubblePreview() {
     PreviewBox {
@@ -154,7 +154,7 @@ fun AIChatBubblePreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun ChatBubbleLongPreview() {
     PreviewBox {
