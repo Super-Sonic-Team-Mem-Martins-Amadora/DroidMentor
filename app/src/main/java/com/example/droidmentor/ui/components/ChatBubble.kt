@@ -40,7 +40,8 @@ fun Loading() {
         Spacer(modifier = Modifier.width(8.dp))
         DroidIcon(
             iconFile = R.drawable.loading,
-            iconSize = 16.dp
+            iconSize = 16.dp,
+            tint = MaterialTheme.colorScheme.tertiary
         )
         Text(
             modifier = Modifier.padding(start = 4.dp),
@@ -53,6 +54,7 @@ fun Loading() {
 
 @Composable
 fun ChatBubble(
+    author: String,
     content: String,
     isUser: Boolean,
     isLoading: Boolean,
@@ -75,7 +77,7 @@ fun ChatBubble(
     val textBubbleColor = if (isUser) {
         MaterialTheme.colorScheme.onPrimary
     } else {
-        MaterialTheme.colorScheme.primaryContainer
+        Color.White
     }
     val bubbleShape = if (isUser) ChatBubbleShapeMe else ChatBubbleShapeAI
 
@@ -115,16 +117,12 @@ fun ChatBubble(
 
 @Composable
 fun PreviewBox(content: @Composable () -> Unit) {
-    DroidMentorTheme(/*dynamicColor = false*/) {
+    DroidMentorTheme(darkTheme = false) {
         Box(
-            modifier = Modifier.padding(30.dp)
-            ) {
-            Box(
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.background)
-            ) {
-                content()
-            }
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background).padding(30.dp)
+        ) {
+            content()
         }
     }
 }
@@ -134,6 +132,7 @@ fun PreviewBox(content: @Composable () -> Unit) {
 fun UserChatBubblePreview() {
     PreviewBox {
         ChatBubble(
+            author = "User",
             content = "This is a preview User chat message!",
             isUser = true,
             isLoading = false,
@@ -146,6 +145,7 @@ fun UserChatBubblePreview() {
 fun LoadingChatBubblePreview() {
     PreviewBox {
         ChatBubble(
+            author = "Ai",
             content = "Loading...",
             isUser = false,
             isLoading = true,
@@ -158,6 +158,7 @@ fun LoadingChatBubblePreview() {
 fun AIChatBubblePreview() {
     PreviewBox {
         ChatBubble(
+            author = "Ai",
             content = "This is a preview AI chat message!",
             isUser = false,
             isLoading = false,
@@ -170,6 +171,7 @@ fun AIChatBubblePreview() {
 fun ChatBubbleLongPreview() {
     PreviewBox {
         ChatBubble(
+            author = "Ai",
             content = "This is a long preview chat message! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique nisl non dolor cursus, ac blandit sem vehicula. Praesent in orci ac eros vulputate scelerisque at vel urna. Nullam dolor arcu, tempus vel posuere sed, dictum in arcu. Aliquam in dui vehicula, tristique lorem sit amet, volutpat tortor. Etiam auctor non nunc et imperdiet. Suspendisse potenti. Etiam laoreet mi nec libero facilisis, eget rutrum nisi tincidunt. Maecenas tristique sapien vel felis porta viverra. Maecenas auctor lorem nibh, sed vestibulum orci euismod vitae. Nullam auctor dolor vitae euismod fringilla. Quisque enim odio, rutrum in mi at, sodales tristique turpis. Mauris vestibulum arcu vel velit dapibus, eu congue odio maximus. Quisque molestie venenatis euismod.",
             isUser = false,
             isLoading = false,

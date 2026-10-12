@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.Dp
 fun DroidIcon(
     iconFile: Int,
     iconSize: Dp,
+    tint: Color? = null,
     iconDesc: String? = null,
     modifier: Modifier = Modifier
 ){
@@ -21,7 +22,7 @@ fun DroidIcon(
     Icon(
         painter = painterResource(id = iconFile),
         contentDescription = iconDesc,
-        tint = if(dark) MaterialTheme.colorScheme.primary else Color.Unspecified,
+        tint = tint ?: if(dark) MaterialTheme.colorScheme.primary else Color.Unspecified,
         modifier = modifier.size(iconSize)
     )
 }
