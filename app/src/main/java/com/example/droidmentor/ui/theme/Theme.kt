@@ -17,8 +17,8 @@ private val DarkColorScheme = darkColorScheme(
     secondary = DarkRed,
     secondaryContainer = Black,
     background = DarkGray,
-    tertiary = Gold
-
+    tertiary = Gold,
+    surfaceDim = Gray
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -28,18 +28,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = DarkRed,
     secondaryContainer = Black,
     background = LightGray,
-    tertiary = MetalGold
-
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    tertiary = MetalGold,
+    surfaceDim = Gray
 )
 
 @Composable
