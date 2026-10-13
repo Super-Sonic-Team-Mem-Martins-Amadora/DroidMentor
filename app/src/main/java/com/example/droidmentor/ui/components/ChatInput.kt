@@ -14,15 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.droidmentor.ui.theme.AppTheme
 
 @Composable
-fun ChatInput(
-
-
-) {
+fun ChatInput(){
     Surface(
         shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
-        border = BorderStroke(3.dp, MaterialTheme.colorScheme.primary),
+        border = BorderStroke(3.dp, color = AppTheme.colors.ButtonContainerBorder),
         modifier = Modifier.fillMaxWidth().height(90.dp)
     ) {
         //TextField()

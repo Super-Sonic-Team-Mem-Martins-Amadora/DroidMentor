@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.theme.AppTheme
 
 
 private val ChatBubbleShapeAI = RoundedCornerShape(0.dp, 20.dp, 20.dp, 20.dp)
@@ -39,13 +40,13 @@ fun Loading() {
         DroidIcon(
             iconFile = R.drawable.loading,
             iconSize = 16.dp,
-            tint = MaterialTheme.colorScheme.tertiary
+            tint = AppTheme.colors.loadingMessage
         )
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = "Loading...",
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.tertiary
+            color = AppTheme.colors.loadingMessage
         )
     }
 }
@@ -63,21 +64,28 @@ fun ChatBubble(
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.primaryContainer
+        AppTheme.colors.userTextContainer
     } else {
-        MaterialTheme.colorScheme.secondaryContainer
+        AppTheme.colors.AITextContainer
     }
     val borderBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.primary
+        AppTheme.colors.userTextContainerBorder
     } else {
-        MaterialTheme.colorScheme.secondary
+        AppTheme.colors.AITextContainerBorder
     }
 
     val textBubbleColor = if (isUser) {
-        MaterialTheme.colorScheme.onPrimary
+        AppTheme.colors.UserText
     } else {
-        Color.White
+        AppTheme.colors.AIText
     }
+
+    val subtextBubbleColor = if (isUser) {
+        AppTheme.colors.subtitleText
+    } else {
+        AppTheme.colors.AITextContainerBorder
+    }
+
     val bubbleShape = if (isUser) ChatBubbleShapeMe else ChatBubbleShapeAI
 
     Column(
@@ -89,7 +97,7 @@ fun ChatBubble(
             Text(
                 text = author,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.surfaceDim
+                color = subtextBubbleColor
             )
         }
         Surface(
@@ -155,7 +163,7 @@ fun ChatBubble(
 @Preview
 @Composable
 fun UserChatBubblePreview() {
-    PreviewBox {
+    PreviewBox(dark = true) {
         ChatBubble(
             author = "User",
             content = "This is a preview User chat message!",
@@ -168,7 +176,7 @@ fun UserChatBubblePreview() {
 @Preview
 @Composable
 fun LoadingChatBubblePreview() {
-    PreviewBox {
+    PreviewBox (dark = true){
         ChatBubble(
             author = "Ai",
             content = "...",
