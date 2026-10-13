@@ -2,14 +2,12 @@ package com.example.droidmentor.ui.components
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,10 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.droidmentor.R
 
 
@@ -58,8 +54,8 @@ fun Loading() {
 fun ChatBubble(
     content: String,
     isUser: Boolean,
-    isLoading: Boolean,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     author: String? = null,
 ){
     val context = LocalContext.current
@@ -159,7 +155,7 @@ fun ChatBubble(
 @Preview
 @Composable
 fun UserChatBubblePreview() {
-    PreviewBox(dark = true) {
+    PreviewBox {
         ChatBubble(
             author = "User",
             content = "This is a preview User chat message!",

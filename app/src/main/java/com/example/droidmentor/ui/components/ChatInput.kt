@@ -38,7 +38,7 @@ fun ChatInput(
 @Preview
 @Composable
 fun ChatInputPreview() {
-    PreviewBox() {
+    PreviewBox {
         ChatInput()
     }
 }
