@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.theme.AppTheme
 
 @Composable
 fun Header(
@@ -42,7 +43,8 @@ fun Header(
         }
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
+            color = AppTheme.colors.primaryText
         )
         Box(
             modifier = Modifier
@@ -58,7 +60,7 @@ fun Header(
 @Preview(showBackground = true)
 @Composable
 fun HeaderPreview(){
-    PreviewBox(padding = 20.dp) {
+    PreviewBox(padding = 20.dp, dark = false) {
         Header(
             title = "Settings",
             button = {
