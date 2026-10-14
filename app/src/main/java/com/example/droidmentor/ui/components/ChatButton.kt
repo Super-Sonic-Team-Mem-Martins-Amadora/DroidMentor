@@ -1,8 +1,11 @@
 package com.example.droidmentor.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -10,12 +13,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
-import com.example.droidmentor.ui.theme.AppTheme
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -57,24 +60,31 @@ fun ChatButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent
         ),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
         modifier = modifier
+            .fillMaxWidth()
     ){
-        icon()
-        Spacer(modifier.width(8.dp))
-        Column {
-            Text(
-                text = chatTitle,
-                style = MaterialTheme.typography.bodyMedium,
-                color = AppTheme.colors.primaryText
-            )
-            if (lastDateModified != null) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            icon()
+            Spacer(modifier.width(8.dp))
+            Column {
                 Text(
-                    text = currTime,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = AppTheme.colors.subtitleText
+                    text = chatTitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
+                if (lastDateModified != null) {
+                    Text(
+                        text = currTime,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
         }
     }
