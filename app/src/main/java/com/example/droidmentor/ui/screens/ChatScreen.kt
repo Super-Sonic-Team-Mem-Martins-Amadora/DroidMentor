@@ -114,9 +114,7 @@ fun ChatScreenPreview() {
         lastDateModified = LocalDateTime.now()
     )
 
-    PreviewBox {
-        ChatScreen(
-            chat
-        )
-    }
+    ChatScreen(
+        chat
+    )
 }
