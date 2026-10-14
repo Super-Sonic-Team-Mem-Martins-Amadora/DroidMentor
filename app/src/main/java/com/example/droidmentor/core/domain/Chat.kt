@@ -4,7 +4,9 @@ import java.time.LocalDateTime
 
 class Chat(
     val messages: MutableList<Msg>,
-    val date: LocalDateTime
+    val title: String,
+    val createdDate: LocalDateTime = LocalDateTime.now(),
+    val lastDateModified: LocalDateTime
 ) {
 
 }

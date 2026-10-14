@@ -16,9 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
 import java.time.Duration
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -28,24 +26,19 @@ fun ChatButton(
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    timestamp: Instant? = null
+    lastDateModified: LocalDateTime? = null
 ){
 
     var currTime = ""
 
-    if (timestamp != null) {
-        // Gets the system default zone
-        val zone = ZoneId.systemDefault()
-        // Gets the original data of the chat with hour with the specified timezone
-        val originalData = timestamp.atZone(zone)
-        // Get the current data with the specified timezone
-        val now = ZonedDateTime.now(zone)
+    if (lastDateModified != null) {
+        val now = LocalDateTime.now()
 
-        val minutes = ChronoUnit.MINUTES.between(originalData, now)
-        val hours = ChronoUnit.HOURS.between(originalData, now)
-        val days = ChronoUnit.DAYS.between(originalData.toLocalDate(), now.toLocalDate())
-        val months = ChronoUnit.MONTHS.between(originalData, now)
-        val years = ChronoUnit.YEARS.between(originalData, now)
+        val minutes = ChronoUnit.MINUTES.between(lastDateModified, now)
+        val hours = ChronoUnit.HOURS.between(lastDateModified, now)
+        val days = ChronoUnit.DAYS.between(lastDateModified, now)
+        val months = ChronoUnit.MONTHS.between(lastDateModified, now)
+        val years = ChronoUnit.YEARS.between(lastDateModified, now)
 
         currTime = when {
             minutes < 1 -> "just now"
@@ -54,7 +47,7 @@ fun ChatButton(
             days < 2 -> "Yesterday"
             months < 1 -> "$days days ago"
             years < 1 -> "$months moths ago"
-            else -> originalData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            else -> lastDateModified.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         }
     }
 
@@ -75,7 +68,7 @@ fun ChatButton(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimary
             )
-            if (timestamp != null) {
+            if (lastDateModified != null) {
                 Text(
                     text = currTime,
                     style = MaterialTheme.typography.bodySmall,
@@ -99,7 +92,7 @@ fun ChatButtonPreviewInstantNow(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now()
+            lastDateModified = LocalDateTime.now()
         )
     }
 }
@@ -117,7 +110,7 @@ fun ChatButtonPreviewInstantMinutes(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofMinutes(2))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofMinutes(2))
         )
     }
 }
@@ -135,7 +128,7 @@ fun ChatButtonPreviewInstantHours(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofHours(1))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofHours(1))
         )
     }
 }
@@ -153,7 +146,7 @@ fun ChatButtonPreviewInstantYesterday(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofDays(1))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofDays(1))
         )
     }
 }
@@ -171,7 +164,7 @@ fun ChatButtonPreviewInstantDays(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofDays(2))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofDays(2))
         )
     }
 }
@@ -189,7 +182,7 @@ fun ChatButtonPreviewInstantMonths(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofDays(40))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofDays(40))
         )
     }
 }
@@ -207,7 +200,7 @@ fun ChatButtonPreviewOld(){
                     iconSize = 32.dp
                 )
             },
-            timestamp = Instant.now().minus(Duration.ofDays(400))
+            lastDateModified = LocalDateTime.now().minus(Duration.ofDays(400))
         )
     }
 }
