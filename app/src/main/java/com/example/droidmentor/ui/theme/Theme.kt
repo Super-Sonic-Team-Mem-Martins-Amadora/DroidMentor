@@ -2,8 +2,6 @@ package com.example.droidmentor.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -13,29 +11,31 @@ import androidx.compose.ui.graphics.Color
 data class AppColors(
     val primaryText : Color,
     val subtitleText : Color,
-    val AIText : Color,
-    val UserText : Color,
-    val ButtonContainer : Color,
-    val ButtonContainerBorder : Color,
+    val aiText : Color,
+    val userText : Color,
+    val buttonContainer : Color,
+    val buttonContainerBorder : Color,
     val userTextContainer : Color,
     val userTextContainerBorder :Color,
-    val AITextContainer :Color,
-    val AITextContainerBorder : Color,
+    val aiTextContainer :Color,
+    val aiTextContainerBorder : Color,
     val background : Color,
     val loadingMessage : Color,
+    val authorText : Color
 )
 
 private val DarkColorScheme1 = AppColors(
     primaryText = White,
     subtitleText = Gray,
-    AIText = White,
-    UserText = Black,
-    ButtonContainer = DarkishGray,
-    ButtonContainerBorder = LightGray,
+    aiText = White,
+    userText = White,
+    authorText = LightGray,
+    buttonContainer = DarkishGray,
+    buttonContainerBorder = LightGray,
     userTextContainer = Blue,
     userTextContainerBorder = LightGray,
-    AITextContainer = Black,
-    AITextContainerBorder = DarkRed,
+    aiTextContainer = Black,
+    aiTextContainerBorder = DarkRed,
     loadingMessage = Gold,
     background = DarkGray,
 )
@@ -58,17 +58,17 @@ private val DarkColorScheme1 = AppColors(
 private val LightColorScheme1 = AppColors(
     primaryText = Black,
     subtitleText = Blue,
-    AIText = White,
-    UserText = Black,
-    ButtonContainer = Blue,
-    ButtonContainerBorder = Black,
+    aiText = White,
+    userText = Black,
+    authorText = DarkGray,
+    buttonContainer = Blue,
+    buttonContainerBorder = Black,
     userTextContainer = White,
     userTextContainerBorder = Blue,
-    AITextContainer = Black,
-    AITextContainerBorder = DarkRed,
+    aiTextContainer = Black,
+    aiTextContainerBorder = DarkRed,
     background = LightGray,
     loadingMessage = MetalGold,
-
 )
 
 /*
@@ -94,9 +94,6 @@ object AppTheme {
     val colors: AppColors
         @Composable get() = LocalAppColors.current
 }
-
-@Composable
-fun appColors(): AppColors = if (isSystemInDarkTheme()) DarkColorScheme1 else LightColorScheme1
 
 @Composable
 fun DroidMentorTheme(

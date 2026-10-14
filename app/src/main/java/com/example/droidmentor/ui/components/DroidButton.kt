@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.ui.theme.AppTheme
-import com.example.droidmentor.ui.theme.appColors
 
 @Composable
 fun DroidButton(
@@ -39,9 +38,9 @@ fun DroidButton(
 ){
     Button(
         onClick = onClick,
-        border = BorderStroke(1.dp, color = AppTheme.colors.ButtonContainerBorder),
+        border = BorderStroke(1.dp, color = AppTheme.colors.buttonContainerBorder),
         colors = ButtonDefaults.buttonColors(
-            containerColor = AppTheme.colors.ButtonContainer,
+            containerColor = AppTheme.colors.buttonContainer,
         ),
         modifier = if (fillMax) modifier.fillMaxWidth() else modifier,
     ){
@@ -63,7 +62,7 @@ fun DroidButton(
 @Preview(showBackground = true)
 @Composable
 fun DroidButtonPreviewIcons() {
-    PreviewBox(dark = false) {
+    PreviewBox(dark = true) {
         Column(
             modifier = Modifier.padding(10.dp, 0.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
