@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,17 +23,18 @@ fun ChatInput(
 
 
 ) {
+    var chatInput by remember { mutableStateOf("") }
+
     Surface(
         shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
         border = BorderStroke(3.dp, MaterialTheme.colorScheme.primary),
         modifier = Modifier.fillMaxWidth().height(90.dp)
     ) {
-        //TextField()
-        Box(
+        TextField(
+            value = chatInput,
+            onValueChange = {},
             modifier = Modifier.padding(14.dp)
-        ) {
-
-        }
+        )
     }
 }
 
