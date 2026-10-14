@@ -103,18 +103,20 @@ fun ChatScreenPreview() {
         "Its not a problem! If you need anything else, dont hesitate to ask!"
     )
 
-    val chats = Chat(
+    val chat = Chat(
+        title = "Chat Screen Example",
         messages = buildList {
             messages.forEachIndexed { i, msg ->
                 add(Msg(msg, if (i % 2 == 0) user else ai))
             }
         } as MutableList<Msg>,
-        date = LocalDateTime.now()
+        createdDate = LocalDateTime.now(),
+        lastDateModified = LocalDateTime.now()
     )
 
     PreviewBox {
         ChatScreen(
-            chats
+            chat
         )
     }
 }
