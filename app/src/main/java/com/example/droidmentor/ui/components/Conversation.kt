@@ -34,15 +34,16 @@ fun Conversation(
 ) {
     val lazylistState = rememberLazyListState()
 
-    val topAlpha by animateFloatAsState(if (lazylistState.canScrollBackward) 1f else 0f, label = "topFade")
-    val bottomAlpha by animateFloatAsState(if (lazylistState.canScrollForward) 1f else 0f, label = "bottomFade")
+    val topAlpha by animateFloatAsState(if (lazylistState.canScrollForward) 1f else 0f, label = "topFade")
+    val bottomAlpha by animateFloatAsState(if (lazylistState.canScrollBackward) 1f else 0f, label = "bottomFade")
     Box(
         modifier = modifier
     ) {
         LazyColumn(
+            reverseLayout = true,
             state = lazylistState
         ) {
-            items(chat.messages) { msg ->
+            items(chat.messages.reversed()) { msg ->
                 Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -111,12 +112,14 @@ fun ConversationPreview() {
     )
 
     val chats = Chat(
+        title = "Example",
         messages = buildList {
             messages.forEachIndexed { i, msg ->
                 add(Msg(msg, if (i % 2 == 0) user else ai))
             }
         } as MutableList<Msg>,
-        date = LocalDateTime.now()
+        createdDate = LocalDateTime.now(),
+        lastDateModified = LocalDateTime.now()
     )
 
     PreviewBox {
@@ -152,6 +155,7 @@ fun LongConversationPreview() {
     )
 
     val chats = Chat(
+        title = "Example",
         messages = buildList {
             var i = 0
             while (i < 5) {
@@ -161,7 +165,8 @@ fun LongConversationPreview() {
                 i++
             }
         } as MutableList<Msg>,
-        date = LocalDateTime.now()
+        createdDate = LocalDateTime.now(),
+        lastDateModified = LocalDateTime.now()
     )
 
     PreviewBox {
