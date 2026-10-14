@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.theme.AppTheme
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -66,13 +67,13 @@ fun ChatButton(
             Text(
                 text = chatTitle,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = AppTheme.colors.primaryText
             )
             if (lastDateModified != null) {
                 Text(
                     text = currTime,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary
+                    color = AppTheme.colors.subtitleText
                 )
             }
         }

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.theme.AppTheme
 
 @Composable
 fun Header(
@@ -43,7 +44,8 @@ fun Header(
         if (title != null && icon != null) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                color = AppTheme.colors.primaryText
             )
         }
         if(icon != null) {

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.droidmentor.ui.theme.AppTheme
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 @Composable
@@ -16,7 +17,7 @@ fun PreviewBox(padding: Dp = 30.dp, dark: Boolean = isSystemInDarkTheme(), conte
     DroidMentorTheme(darkTheme = dark) {
         Box(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.background).padding(padding)
+                .background(color = AppTheme.colors.background).padding(padding)
         ) {
             content()
         }
