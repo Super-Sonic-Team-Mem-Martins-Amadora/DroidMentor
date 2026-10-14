@@ -44,7 +44,7 @@ fun Header(
         if (title != null && icon != null) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
                 color = AppTheme.colors.primaryText
             )
         }
