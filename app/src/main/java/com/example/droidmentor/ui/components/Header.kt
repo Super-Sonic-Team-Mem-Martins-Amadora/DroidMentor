@@ -20,10 +20,10 @@ import com.example.droidmentor.R
 
 @Composable
 fun Header(
-    title: String,
     button: @Composable () -> Unit,
-    icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    icon: @Composable (() -> Unit)? = null,
 ){
     Row(
         modifier = modifier
@@ -40,17 +40,21 @@ fun Header(
         ) {
             button()
         }
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(5.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            icon()
+        if (title != null && icon != null) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+        if(icon != null) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(5.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                icon()
+            }
         }
     }
 }
@@ -81,6 +85,57 @@ fun HeaderPreview(){
                     iconSize = 24.dp
                 )
             }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HeaderPreviewWithIcon(){
+    PreviewBox(padding = 20.dp) {
+        Header(
+            button = {
+                IconButton(
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.back,
+                            iconDesc = "Back",
+                            iconSize = 24.dp
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.size(48.dp)
+                )
+            },
+            icon = {
+                DroidIcon(
+                    iconFile = R.drawable.settings,
+                    iconDesc = "Settings",
+                    iconSize = 24.dp
+                )
+            }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HeaderPreviewNull(){
+    PreviewBox(padding = 20.dp) {
+        Header(
+            button = {
+                IconButton(
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.back,
+                            iconDesc = "Back",
+                            iconSize = 24.dp
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.size(48.dp)
+                )
+            },
         )
     }
 }
