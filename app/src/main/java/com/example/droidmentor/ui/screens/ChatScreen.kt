@@ -1,9 +1,13 @@
 package com.example.droidmentor.ui.screens
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,13 +15,18 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
@@ -71,17 +80,29 @@ fun ChatScreen(
 
     Scaffold(
         topBar = header,
-        bottomBar = {
-            ChatInput(
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).navigationBarsPadding().imePadding().padding(15.dp)
-            )
-        },
-        modifier = Modifier.fillMaxSize().imePadding()
+        //containerColor = Color.Black,
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
     ) { innerPadding ->
         Box(
-            modifier = Modifier.padding(innerPadding).padding(start = 10.dp, end = 10.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            Conversation(conversation)
+            Conversation(
+                conversation,
+                bottom = {
+                    Spacer(modifier = Modifier.height(120.dp))
+                },
+                modifier = Modifier.padding(horizontal = 10.dp)
+            )
+            ChatInput(
+                modifier = Modifier
+                    .padding(15.dp)
+                    .height(90.dp)
+                    .align(Alignment.BottomCenter)
+            )
         }
     }
 }

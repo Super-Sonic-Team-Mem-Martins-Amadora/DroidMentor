@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -30,7 +31,8 @@ import java.time.LocalDateTime
 @Composable
 fun Conversation(
     chat: Chat,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    bottom: (@Composable () -> Unit)? = null,
 ) {
     val lazylistState = rememberLazyListState()
 
@@ -43,6 +45,9 @@ fun Conversation(
             reverseLayout = true,
             state = lazylistState
         ) {
+            item {
+                bottom?.invoke()
+            }
             items(chat.messages.reversed()) { msg ->
                 Box(
                     modifier = Modifier.fillMaxWidth()

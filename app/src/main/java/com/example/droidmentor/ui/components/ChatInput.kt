@@ -1,6 +1,12 @@
 package com.example.droidmentor.ui.components
 
 import android.graphics.Paint
+import androidx.compose.animation.core.EaseInBounce
+import androidx.compose.animation.core.EaseInOutBounce
+import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,7 +50,13 @@ import com.example.droidmentor.R
 fun ChatInput(
     modifier: Modifier = Modifier
 ) {
-    var chatInput by remember { mutableStateOf("sd") }
+    var chatInput by remember { mutableStateOf("") }
+
+    val sendAlpha by animateFloatAsState(
+        targetValue = if (chatInput.isNotEmpty()) 1f else 0f,
+        animationSpec = tween(durationMillis = 150, easing = EaseInOutCubic),
+        label = "sendFade"
+    )
 
     Surface(
         shape = RoundedCornerShape(15.dp),
@@ -56,21 +69,31 @@ fun ChatInput(
         ) {
             TextField(
                 value = chatInput,
-                onValueChange = {},
+                onValueChange = {
+                    chatInput = it
+                },
+
                 textStyle = MaterialTheme.typography.bodyMedium,
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
-                )
+                ),
+                modifier = Modifier.fillMaxWidth().weight(0.8f)
             )
-            if (chatInput.isNotEmpty()) {
+            if (sendAlpha != 0f) {
                 Button(
                     shape = CircleShape,
-                    modifier = Modifier.fillMaxHeight().aspectRatio(1f).padding(10.dp),
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .aspectRatio(1f)
+                        .weight(0.2f)
+                        .graphicsLayer(alpha = sendAlpha),
                     contentPadding = PaddingValues(5.dp),
-                    onClick = {}
+                    onClick = {
+
+                    }
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.send),
@@ -89,6 +112,8 @@ fun ChatInput(
 @Composable
 fun ChatInputPreview() {
     PreviewBox {
-        ChatInput()
+        ChatInput(
+            modifier = Modifier.height(90.dp).fillMaxWidth()
+        )
     }
 }
