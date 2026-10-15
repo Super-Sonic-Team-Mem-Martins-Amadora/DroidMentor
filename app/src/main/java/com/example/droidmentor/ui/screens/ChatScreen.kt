@@ -3,10 +3,12 @@ package com.example.droidmentor.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
@@ -70,11 +72,17 @@ fun ChatScreen(
     Scaffold(
         topBar = header,
         bottomBar = {
-            ChatInput()
+            ChatInput(
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).navigationBarsPadding().imePadding().padding(15.dp)
+            )
         },
         modifier = Modifier.fillMaxSize().imePadding()
     ) { innerPadding ->
-        Conversation(conversation, Modifier.padding(innerPadding))
+        Box(
+            modifier = Modifier.padding(innerPadding).padding(start = 10.dp, end = 10.dp)
+        ) {
+            Conversation(conversation)
+        }
     }
 }
 
