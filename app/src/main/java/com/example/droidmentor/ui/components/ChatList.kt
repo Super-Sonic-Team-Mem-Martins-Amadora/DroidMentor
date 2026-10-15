@@ -36,7 +36,7 @@ fun ChatList(
     val lazylistState = rememberLazyListState()
 
     // Backwards -> Top
-    // Forwards -> Top
+    // Forwards -> Bottom
     val topAlpha by animateFloatAsState(if (lazylistState.canScrollBackward) 1f else 0f, label = "topFade")
     val bottomAlpha by animateFloatAsState(if (lazylistState.canScrollForward) 1f else 0f, label = "bottomFade")
 
