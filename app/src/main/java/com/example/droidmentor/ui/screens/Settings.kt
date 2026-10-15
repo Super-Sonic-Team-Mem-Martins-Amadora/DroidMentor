@@ -89,7 +89,7 @@ fun Settings(){
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null, // no ripple, so it stays invisible
-                        onClick = {} //easter egg
+                        onClick = {} //Easter egg
                     )
             )
         }
