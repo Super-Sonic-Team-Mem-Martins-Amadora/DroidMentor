@@ -19,11 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
-import com.example.droidmentor.ui.theme.AppTheme
 
 
 private val ChatBubbleShapeAI = RoundedCornerShape(0.dp, 20.dp, 20.dp, 20.dp)
@@ -39,13 +39,13 @@ fun Loading() {
         DroidIcon(
             iconFile = R.drawable.loading,
             iconSize = 16.dp,
-            tint = AppTheme.colors.loadingMessage
+            tint = MaterialTheme.colorScheme.tertiary
         )
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = "Loading...",
             style = MaterialTheme.typography.bodySmall,
-            color = AppTheme.colors.loadingMessage
+            color = MaterialTheme.colorScheme.tertiary
         )
     }
 }
@@ -63,22 +63,21 @@ fun ChatBubble(
     val canCopy = !isUser
 
     val backgroundBubbleColor = if (isUser) {
-        AppTheme.colors.userTextContainer
+        MaterialTheme.colorScheme.primaryContainer
     } else {
-        AppTheme.colors.aiTextContainer
+        MaterialTheme.colorScheme.secondaryContainer
     }
     val borderBubbleColor = if (isUser) {
-        AppTheme.colors.userTextContainerBorder
+        MaterialTheme.colorScheme.primary
     } else {
-        AppTheme.colors.aiTextContainerBorder
+        MaterialTheme.colorScheme.secondary
     }
 
     val textBubbleColor = if (isUser) {
-        AppTheme.colors.userText
+        MaterialTheme.colorScheme.onPrimary
     } else {
-        AppTheme.colors.aiText
+        Color.White
     }
-
     val bubbleShape = if (isUser) ChatBubbleShapeMe else ChatBubbleShapeAI
 
     Column(
@@ -90,7 +89,7 @@ fun ChatBubble(
             Text(
                 text = author,
                 style = MaterialTheme.typography.bodySmall,
-                color = AppTheme.colors.authorText
+                color = MaterialTheme.colorScheme.surfaceDim
             )
         }
         Surface(

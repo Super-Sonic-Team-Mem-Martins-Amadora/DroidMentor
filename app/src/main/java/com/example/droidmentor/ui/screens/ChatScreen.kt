@@ -28,6 +28,7 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
+import com.example.droidmentor.ui.theme.DroidMentorTheme
 import java.time.LocalDateTime
 
 @Composable
@@ -61,7 +62,8 @@ fun ChatScreen(
                     }
                 )
             },
-            icon = if (!newChat) logo else null
+            icon = if (!newChat) logo else null,
+            modifier = Modifier.padding(5.dp)
         )
     }
 
@@ -113,8 +115,9 @@ fun ChatScreenPreview() {
         createdDate = LocalDateTime.now(),
         lastDateModified = LocalDateTime.now()
     )
-
-    ChatScreen(
-        chat
-    )
+    DroidMentorTheme {
+        ChatScreen(
+            chat
+        )
+    }
 }

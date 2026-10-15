@@ -21,15 +21,12 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
-import com.example.droidmentor.ui.theme.AppTheme
 
 const val version = "1.0.0"
 
 @Composable
 fun About(){
     Scaffold(
-        containerColor = AppTheme.colors.background,
-        contentColor = AppTheme.colors.primaryText,
         topBar = {
             Header(
                 title = "About",
@@ -65,7 +62,7 @@ fun About(){
         ) {
             Text(
                 text = "Version $version",
-                color = AppTheme.colors.primaryText,
+                color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier,
             )
@@ -81,7 +78,7 @@ fun About(){
                         withBulletListItem { append("Maximus Delorey") }
                     }
                 },
-                color = AppTheme.colors.primaryText,
+                color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier,
             )

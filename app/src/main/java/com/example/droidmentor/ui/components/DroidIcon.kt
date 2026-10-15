@@ -2,6 +2,7 @@ package com.example.droidmentor.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -10,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
-import com.example.droidmentor.ui.theme.AppTheme
 
 @Composable
 fun DroidIcon(
@@ -23,7 +23,7 @@ fun DroidIcon(
     Icon(
         painter = painterResource(id = iconFile),
         contentDescription = iconDesc,
-        tint = tint ?: AppTheme.colors.primaryText,
+        tint = tint ?: MaterialTheme.colorScheme.onPrimary,
         modifier = modifier.size(iconSize)
     )
 }

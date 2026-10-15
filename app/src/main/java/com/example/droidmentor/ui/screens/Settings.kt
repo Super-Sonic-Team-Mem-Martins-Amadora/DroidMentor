@@ -22,7 +22,6 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
-import com.example.droidmentor.ui.theme.AppTheme
 
 data class SettingButton(
     val label : String,
@@ -51,8 +50,6 @@ val settingsOptions = arrayOf(
 @Composable
 fun Settings(){
     Scaffold(
-        containerColor = AppTheme.colors.background,
-        contentColor = AppTheme.colors.primaryText,
         topBar = {
             Header(
                 title = "Settings",

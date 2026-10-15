@@ -2,12 +2,15 @@ package com.example.droidmentor.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 
 import androidx.compose.ui.graphics.Color
 
+/*
 data class AppColors(
     val primaryText : Color,
     val subtitleText : Color,
@@ -40,21 +43,6 @@ private val DarkColorScheme1 = AppColors(
     background = DarkGray,
 )
 
-/*
-    private val DarkColorScheme = darkColorScheme(
-        primary = LightGray,
-        onPrimary = White,
-        onSecondary = Black,
-        primaryContainer = Blue,
-        secondary = DarkRed,
-        secondaryContainer = Black,
-        background = DarkGray,
-        tertiary = Gold,
-        surfaceDim = LightGray,
-        tertiaryContainer = DarkishGray
-    )
-*/
-
 private val LightColorScheme1 = AppColors(
     primaryText = Black,
     subtitleText = Blue,
@@ -69,30 +57,48 @@ private val LightColorScheme1 = AppColors(
     aiTextContainerBorder = DarkRed,
     background = LightGray,
     loadingMessage = MetalGold,
+)*/
+
+
+private val LightColorScheme = lightColorScheme(
+    primary = Blue,
+    onPrimary = Black,
+    onSecondary = White,
+    primaryContainer = White,
+    secondary = DarkRed,
+    secondaryContainer = Black,
+    background = LightGray,
+    tertiary = MetalGold,
+    surfaceDim = Gray,
+    outline = Blue,
+    outlineVariant = Black,
+    tertiaryContainer = Blue
 )
 
-/*
-    private val LightColorScheme = lightColorScheme(
-        primary = Blue,
-        onPrimary = Black,
-        onSecondary = White,
-        primaryContainer = White,
-        secondary = DarkRed,
-        secondaryContainer = Black,
-        background = LightGray,
-        tertiary = MetalGold,
-        surfaceDim = Gray,
-        tertiaryContainer = Blue
-    )
-*/
+private val DarkColorScheme = darkColorScheme(
+    primary = LightGray,
+    onPrimary = White,
+    onSecondary = Black,
+    primaryContainer = Blue,
+    secondary = DarkRed,
+    secondaryContainer = Black,
+    background = DarkGray,
+    tertiary = Gold,
+    surfaceDim = LightGray,
+    outline = LightGray,
+    outlineVariant = LightGray,
+    tertiaryContainer = DarkishGray
+)
 
 //value that any composable at a certain point of the tree can read, like Context
+/*
 private val LocalAppColors = staticCompositionLocalOf { LightColorScheme1 }
 
 object AppTheme {
     val colors: AppColors
         @Composable get() = LocalAppColors.current
 }
+*/
 
 @Composable
 fun DroidMentorTheme(
@@ -101,9 +107,19 @@ fun DroidMentorTheme(
     // dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    CompositionLocalProvider(
-        LocalAppColors provides if (darkTheme) DarkColorScheme1 else LightColorScheme1
-    ) {
-        MaterialTheme(typography = Typography, content = content)
+    val colorScheme = when {
+        /*dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }*/
+
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
     }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
 }
