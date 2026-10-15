@@ -36,17 +36,17 @@ private val easterEggs = arrayOf(
     EasterEggs(
         title = "Evil Shadow!!",
         desc = "Did you even beat Promised Consort Radahn?",
-        egg = R.raw.dadow
+        egg = R.drawable.dadow
     ),
     EasterEggs(
         title = "Holy Sonic!",
         desc = "Behold The power of Sonic!",
-        egg = R.raw.holy_donic
+        egg = R.drawable.holy_donic
     ),
     EasterEggs(
         title = "Good hol' Donic!!",
         desc = "Not big on customization right?",
-        egg = R.raw.plain_donic
+        egg = R.drawable.plain_donic
     ),
 )
 
