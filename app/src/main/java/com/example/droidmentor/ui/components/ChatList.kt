@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -29,22 +30,22 @@ import java.time.LocalDateTime
 fun ChatList(
     chatList: List<Chat>,
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     withTimestamp: Boolean = false,
     topFade: Boolean = false,
     bottomFade: Boolean = false,
 ){
-    val lazylistState = rememberLazyListState()
 
     // Backwards -> Top
     // Forwards -> Bottom
-    val topAlpha by animateFloatAsState(if (lazylistState.canScrollBackward) 1f else 0f, label = "topFade")
-    val bottomAlpha by animateFloatAsState(if (lazylistState.canScrollForward) 1f else 0f, label = "bottomFade")
+    val topAlpha by animateFloatAsState(if (lazyListState.canScrollBackward) 1f else 0f, label = "topFade")
+    val bottomAlpha by animateFloatAsState(if (lazyListState.canScrollForward) 1f else 0f, label = "bottomFade")
 
     Box(
         modifier = modifier
     ) {
         LazyColumn(
-            state = lazylistState,
+            state = lazyListState,
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
         ) {
