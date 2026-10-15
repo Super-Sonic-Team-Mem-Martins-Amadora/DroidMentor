@@ -31,7 +31,7 @@ fun DroidButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    fillMax : Boolean = true,
+    alignLeft : Boolean = true,
     icon: @Composable (() -> Unit)? = null,
 ){
     Button(
@@ -40,7 +40,7 @@ fun DroidButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         ),
-        modifier = if (fillMax) modifier.fillMaxWidth() else modifier,
+        modifier = modifier,
     ){
         if(icon != null){
             icon()
@@ -51,8 +51,8 @@ fun DroidButton(
             text = label,
             color = MaterialTheme.colorScheme.onPrimary,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = if(fillMax) TextAlign.Start else TextAlign.End,
-            modifier = if (fillMax) Modifier.weight(1f) else Modifier,
+            textAlign = if(alignLeft) TextAlign.Start else TextAlign.End,
+            modifier = if (alignLeft) Modifier.weight(1f) else Modifier,
         )
     }
 }
@@ -69,14 +69,14 @@ fun DroidButtonPreviewIcons() {
             DroidButton(
                 label = "No icon",
                 onClick = {},
-                fillMax = false
+                modifier = Modifier.fillMaxWidth()
             )
 
             // With icon
             DroidButton(
                 label = "Icon",
                 onClick = {},
-                fillMax = false,
+                modifier = Modifier.fillMaxWidth(),
                 icon = {
                     Box(
                         modifier = Modifier
@@ -110,7 +110,7 @@ fun DroidButtonPreviewfuns() {
                 DroidButton(
                     label = "Counter up",
                     onClick = { count++ },
-                    fillMax = false,
+                    alignLeft = false,
                     icon = {
                         Box(
                             modifier = Modifier
@@ -123,7 +123,7 @@ fun DroidButtonPreviewfuns() {
                 DroidButton(
                     label = "Counter down",
                     onClick = { if (count > 0) count-- },
-                    fillMax = false,
+                    alignLeft = false,
                     icon = {
                         Box(
                             modifier = Modifier

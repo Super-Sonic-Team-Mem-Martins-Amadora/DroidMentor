@@ -28,33 +28,36 @@ const val version = "1.0.0"
 fun About(){
     Scaffold(
         topBar = {
-            Header(
-                title = "About",
-                button = {
-                    IconButton(
-                        icon = {
-                            DroidIcon(
-                                iconFile = R.drawable.info,
-                                iconDesc = "Back",
-                                iconSize = 24.dp,
-                            )
-                        },
-                        onClick = {},
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                icon = {
-                    DroidIcon(
-                        iconFile = R.drawable.settings,
-                        iconDesc = "Settings",
-                        iconSize = 24.dp
-                    )
-                }
-            )
+            Column{
+                Header(
+                    title = "About",
+                    button = {
+                        IconButton(
+                            icon = {
+                                DroidIcon(
+                                    iconFile = R.drawable.info,
+                                    iconDesc = "Back",
+                                    iconSize = 24.dp,
+                                )
+                            },
+                            onClick = {},
+                            modifier = Modifier.size(24.dp)
+                        )
+                    },
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.settings,
+                            iconDesc = "Settings",
+                            iconSize = 24.dp
+                        )
+                    }
+
+                )
+                Spacer(Modifier.height(30.dp))
+            }
         },
         //bottomBar = sonic picture
     ) { innerPadding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
