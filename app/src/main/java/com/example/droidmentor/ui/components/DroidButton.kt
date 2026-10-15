@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,29 +33,38 @@ fun DroidButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    alignLeft : Boolean = true,
+    alignLeft : Boolean = false,
+    border : BorderStroke? = null,
     icon: @Composable (() -> Unit)? = null,
 ){
-    Button(
+    Surface(
         onClick = onClick,
-        border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.outlineVariant),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-        ),
         modifier = modifier,
-    ){
-        if(icon != null){
-            icon()
-            //spacing between icon ant text
-            Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+        shape = ButtonDefaults.shape,
+        color = MaterialTheme.colorScheme.tertiaryContainer,
+        border = border ?: BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+    ) {
+        Row(
+            modifier = Modifier
+                .defaultMinSize(
+                    minWidth = ButtonDefaults.MinWidth,
+                    minHeight = ButtonDefaults.MinHeight,
+                )
+                .padding(ButtonDefaults.ContentPadding),
+            horizontalArrangement = if (alignLeft) Arrangement.Start else Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (icon != null) {
+                icon()
+                //spacing between icon ant text
+                Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+            }
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
-        Text(
-            text = label,
-            color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = if(alignLeft) TextAlign.Start else TextAlign.End,
-            modifier = if (alignLeft) Modifier.weight(1f) else Modifier,
-        )
     }
 }
 
@@ -69,6 +80,7 @@ fun DroidButtonPreviewIcons() {
             DroidButton(
                 label = "No icon",
                 onClick = {},
+                alignLeft = false,
                 modifier = Modifier.fillMaxWidth()
             )
 

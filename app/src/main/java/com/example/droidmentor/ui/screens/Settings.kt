@@ -5,6 +5,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,7 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
+import com.example.droidmentor.ui.components.spacing
 
 data class SettingButton(
     val label : String,
@@ -51,29 +53,33 @@ val settingsOptions = arrayOf(
 fun Settings(){
     Scaffold(
         topBar = {
-            Header(
-                title = "Settings",
-                button = {
-                    IconButton(
-                        icon = {
-                            DroidIcon(
-                                iconFile = R.drawable.back,
-                                iconDesc = "Back",
-                                iconSize = 24.dp,
-                            )
-                        },
-                        onClick = {},
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                icon = {
-                    DroidIcon(
-                        iconFile = R.drawable.settings,
-                        iconDesc = "Settings",
-                        iconSize = 24.dp
-                    )
-                }
-            )
+            Column {
+                Header(
+                    title = "Settings",
+                    button = {
+                        IconButton(
+                            icon = {
+                                DroidIcon(
+                                    iconFile = R.drawable.back,
+                                    iconDesc = "Back",
+                                    iconSize = 24.dp,
+                                )
+                            },
+                            onClick = {},
+                            modifier = Modifier.size(24.dp)
+                        )
+                    },
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.settings,
+                            iconDesc = "Settings",
+                            iconSize = 24.dp
+                        )
+                    }
+                )
+                Spacer(Modifier.height(spacing))
+            }
+
         },
         bottomBar = {
             Box(
@@ -102,7 +108,9 @@ fun Settings(){
                 settingsOptions.forEach { option ->
                     DroidButton(
                         label = option.label,
-                        onClick = option.action
+                        onClick = option.action,
+                        alignLeft = true,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
@@ -113,7 +121,7 @@ fun Settings(){
 @Preview(showBackground = true)
 @Composable
 fun SettingsPreview(){
-    PreviewBox(padding = 20.dp, dark = true) {
+    PreviewBox(padding = 20.dp, dark = false) {
         Settings()
     }
 }

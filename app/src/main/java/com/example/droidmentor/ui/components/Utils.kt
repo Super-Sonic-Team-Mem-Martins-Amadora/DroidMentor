@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 
+val spacing = 30.dp
+
 @Composable
 fun PreviewBox(padding: Dp = 30.dp, dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     DroidMentorTheme(darkTheme = dark) {
