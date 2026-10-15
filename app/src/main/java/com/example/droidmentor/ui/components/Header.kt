@@ -2,13 +2,16 @@ package com.example.droidmentor.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,39 +28,39 @@ fun Header(
     modifier: Modifier = Modifier,
     title: String? = null,
     icon: @Composable (() -> Unit)? = null,
-){
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(5.dp),
-            contentAlignment = Alignment.Center
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            button()
-        }
-        if (title != null && icon != null) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                color = AppTheme.colors.primaryText
-            )
-        }
-        if(icon != null) {
             Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(5.dp),
+                modifier = Modifier.fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
-                icon()
+                button()
+            }
+            if (title != null && icon != null) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = AppTheme.colors.primaryText
+                )
+            }
+            if (icon != null) {
+                Box(
+                    modifier = Modifier.fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    icon()
+                }
             }
         }
+        Spacer(modifier = Modifier.height(35.dp))
     }
 }
 

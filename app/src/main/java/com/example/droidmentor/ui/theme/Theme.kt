@@ -86,7 +86,6 @@ private val LightColorScheme1 = AppColors(
     )
 */
 
-
 //value that any composable at a certain point of the tree can read, like Context
 private val LocalAppColors = staticCompositionLocalOf { LightColorScheme1 }
 
