@@ -96,6 +96,7 @@ fun ChatInput(
                     contentPadding = PaddingValues(5.dp),
                     onClick = {
                         onSend(chatInput)
+                        chatInput = ""
                     }
                 ) {
                     Icon(
