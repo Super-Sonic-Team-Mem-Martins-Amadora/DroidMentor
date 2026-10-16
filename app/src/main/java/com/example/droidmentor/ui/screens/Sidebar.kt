@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -36,6 +35,7 @@ import com.example.droidmentor.ui.components.DroidButton
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
+import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 import java.time.LocalDateTime
 
@@ -55,18 +55,18 @@ fun Sidebar(
                         DroidIcon(
                             iconFile = R.drawable.burger,
                             iconDesc = "Sidebar",
-                            iconSize = 40.dp
+                            iconSize = headerSize
                         )
                     },
                     onClick = {},
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(headerSize)
                 )
             },
             icon = {
                 DroidIcon(
                     iconFile = R.drawable.logo,
                     iconDesc = "Chat Bubble",
-                    iconSize = 40.dp,
+                    iconSize = headerSize,
                     tint = Color.Unspecified
                 )
             },
@@ -74,63 +74,8 @@ fun Sidebar(
         )
     }
 
-    val bottom = @Composable {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .padding(20.dp)
-        ) {
-            ExtendedFloatingActionButton(
-                onClick = {},
-                icon = {
-                    DroidIcon(
-                        iconFile = R.drawable.info,
-                        iconDesc = "About",
-                        iconSize = 24.dp
-                    )
-                },
-                text = {
-                    Text("About")
-                },
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.border(
-                    width = 2.dp,
-                    MaterialTheme.colorScheme.outlineVariant,
-                    RoundedCornerShape(12.dp)
-                )
-            )
-            ExtendedFloatingActionButton(
-                onClick = {},
-                icon = {
-                    DroidIcon(
-                        iconFile = R.drawable.settings,
-                        iconDesc = "Settings",
-                        iconSize = 24.dp
-                    )
-                },
-                text = {
-                    Text("Settings")
-                },
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.border(
-                    width = 2.dp,
-                    MaterialTheme.colorScheme.outlineVariant,
-                    RoundedCornerShape(12.dp)
-                )
-            )
-        }
-    }
-
     Scaffold(
         topBar = header,
-        //bottomBar = bottom,
         modifier = Modifier.fillMaxSize().imePadding()
     ) { innerPadding ->
         Column(
@@ -261,7 +206,7 @@ fun SidebarPreview(){
         while (i < 11) {
             add(Chat(
                 messages = mutableListOf(),
-                title = "Chat $i idkkkkkkkkkkkkkkkkkkkk",
+                title = "Chat $i Teste",
                 lastDateModified = LocalDateTime.now()
             ))
             i++

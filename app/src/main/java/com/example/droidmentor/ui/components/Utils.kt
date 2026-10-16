@@ -13,6 +13,8 @@ import com.example.droidmentor.ui.theme.DroidMentorTheme
 
 val spacing = 30.dp
 
+val headerSize = 40.dp
+
 @Composable
 fun PreviewBox(padding: Dp = 30.dp, dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     DroidMentorTheme(darkTheme = dark) {

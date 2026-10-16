@@ -1,6 +1,5 @@
 package com.example.droidmentor.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,12 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
 import com.example.droidmentor.core.domain.Chat
-import com.example.droidmentor.core.domain.Msg
 import com.example.droidmentor.ui.components.ChatList
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.SearchInput
+import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 import java.time.LocalDateTime
 
@@ -67,18 +66,18 @@ fun AllChats(
                         DroidIcon(
                             iconFile = R.drawable.burger,
                             iconDesc = "Sidebar",
-                            iconSize = 40.dp
+                            iconSize = headerSize
                         )
                     },
                     onClick = {},
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(headerSize)
                 )
             },
             icon = {
                 DroidIcon(
                     iconFile = R.drawable.chat_bubble,
                     iconDesc = "Chat Bubble",
-                    iconSize = 40.dp
+                    iconSize = headerSize
                 )
             },
             modifier = Modifier.padding(20.dp)
@@ -161,7 +160,7 @@ fun AllChatsPreview(){
         var i = 0
         while (i < 15) {
             add(Chat(
-                messages = mutableListOf<Msg>(),
+                messages = mutableListOf(),
                 title = "Chat $i",
                 lastDateModified = LocalDateTime.now()
             ))
