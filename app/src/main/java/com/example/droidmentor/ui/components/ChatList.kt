@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
 import com.example.droidmentor.core.domain.Chat
-import com.example.droidmentor.core.domain.Msg
 import java.time.LocalDateTime
 
 @Composable
@@ -64,13 +63,12 @@ fun ChatList(
                 )
             }
             if (bottom != null) {
-                item() {
+                item {
                     bottom()
                 }
             }
         }
         if (topFade) {
-            Log.d("","TOPFADE ENTROU")
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -87,7 +85,6 @@ fun ChatList(
             )
         }
         if (bottomFade) {
-            Log.d("","BOTTOMFADE ENTROU")
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -119,7 +116,7 @@ fun ChatListPreviewWithoutTimeStamp(){
         var i = 0
         while (i < 15) {
             add(Chat(
-                messages = mutableListOf<Msg>(),
+                messages = mutableListOf(),
                 title = "Chat $i",
                 lastDateModified = LocalDateTime.now()
             ))
@@ -144,7 +141,7 @@ fun ChatListPreviewWithTimeStamp(){
             var i = 0
             while (i < 15) {
                     add(Chat(
-                        messages = mutableListOf<Msg>(),
+                        messages = mutableListOf(),
                         title = "Chat $i",
                         lastDateModified = LocalDateTime.now()
                     ))
