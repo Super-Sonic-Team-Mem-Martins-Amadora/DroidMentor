@@ -1,6 +1,10 @@
 package com.example.droidmentor.ui.screens
 
+import android.util.Log
+import androidx.compose.animation.core.EaseInOutCubic
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -20,15 +24,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.droidmentor.R
 import com.example.droidmentor.core.domain.Account
 import com.example.droidmentor.core.domain.Chat
@@ -38,22 +52,49 @@ import com.example.droidmentor.ui.components.Conversation
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
+import com.example.droidmentor.ui.components.Logo
 import com.example.droidmentor.ui.components.PreviewBox
 import com.example.droidmentor.ui.theme.DroidMentorTheme
+import com.example.droidmentor.ui.theme.comicSansFamily
 import java.time.LocalDateTime
 
 @Composable
 fun ChatScreen(
-    conversation: Chat,
+    onSend: (String) -> Unit = {},
+    conversation: Chat = Chat(),
 ){
-    val newChat = conversation.messages.isEmpty()
+    val messages by remember {
+        derivedStateOf {
+            conversation.messages
+        }
+    }
+
+    val newChat = messages.isEmpty()
+
+    val logosAlpha by animateFloatAsState(
+        targetValue = if (newChat) 1f else 0f,
+        animationSpec = tween(durationMillis = 500, easing = EaseInOutCubic),
+        label = "logosFade"
+    )
+
+    fun getInvertedLogosAlpha(): Float {
+        return -(logosAlpha - 1f)
+    }
 
     val logo = @Composable {
         DroidIcon(
             iconFile = R.drawable.logo,
-            iconSize = 50.dp,
+            iconSize = 40.dp,
             iconDesc = "DroidMentor",
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
+            modifier = Modifier.graphicsLayer { alpha = getInvertedLogosAlpha()}
+        )
+    }
+
+    val inputPlaceholder = @Composable {
+        Text(
+            text = "Ask anything...",
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 
@@ -64,7 +105,7 @@ fun ChatScreen(
                     icon = {
                         DroidIcon(
                             iconFile = R.drawable.burger,
-                            iconSize = 50.dp,
+                            iconSize = 40.dp,
                             iconDesc = "Sidebar"
                         )
                     },
@@ -73,8 +114,8 @@ fun ChatScreen(
                     }
                 )
             },
-            icon = if (!newChat) logo else null,
-            modifier = Modifier.padding(5.dp)
+            icon = if (getInvertedLogosAlpha() != 0f) logo else null,
+            modifier = Modifier.padding(20.dp)
         )
     }
 
@@ -90,14 +131,61 @@ fun ChatScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Conversation(
-                conversation,
-                bottom = {
-                    Spacer(modifier = Modifier.height(120.dp))
-                },
-                modifier = Modifier.padding(horizontal = 10.dp)
-            )
+            if (!newChat) {
+                Conversation(
+                    conversation,
+                    bottom = {
+                        Spacer(modifier = Modifier.height(120.dp))
+                    },
+                    modifier = Modifier.padding(horizontal = 10.dp)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .graphicsLayer { alpha = logosAlpha }
+            ) {
+                Column {
+                    Spacer(Modifier.height(30.dp))
+                    Logo(
+                        label = {
+                            Box {
+                                Text(
+                                    text = "DroidMentor",
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                        fontFamily = comicSansFamily,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 52.sp,
+                                        lineHeight = 24.sp,
+                                        letterSpacing = 0.5.sp
+                                    ),
+                                )
+                                Text(
+                                    text = "DroidMentor",
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.primary,
+                                        drawStyle = Stroke(
+                                            width = 7f
+                                        ),
+                                        fontFamily = comicSansFamily,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 52.sp,
+                                        lineHeight = 24.sp,
+                                        letterSpacing = 0.5.sp
+                                    ),
+                                )
+                            }
+                        }
+                    )
+                }
+            }
             ChatInput(
+                onSend = { msg ->
+                    Log.d("IDK", msg)
+                    onSend(msg)
+                },
+                placeholder = if (newChat) inputPlaceholder else null,
                 modifier = Modifier
                     .padding(15.dp)
                     .height(90.dp)
@@ -134,18 +222,26 @@ fun ChatScreenPreview() {
         "Its not a problem! If you need anything else, dont hesitate to ask!"
     )
 
+    val msgs = mutableListOf<Msg>()
+
+    messages.forEachIndexed { i, msg ->
+        msgs.add(Msg(msg, if (i % 2 == 0) user else ai))
+    }
+
     val chat = Chat(
         title = "Chat Screen Example",
-        messages = buildList {
-            messages.forEachIndexed { i, msg ->
-                add(Msg(msg, if (i % 2 == 0) user else ai))
-            }
-        } as MutableList<Msg>,
+        messages = msgs,
         createdDate = LocalDateTime.now(),
         lastDateModified = LocalDateTime.now()
     )
     DroidMentorTheme {
         ChatScreen(
+            {
+                chat.messages.addAll( listOf(
+                    Msg(it, user),
+                    Msg("I'm sorry, im unable to assist with your request", ai),
+                ))
+            },
             chat
         )
     }

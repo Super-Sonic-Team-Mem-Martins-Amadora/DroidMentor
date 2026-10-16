@@ -48,7 +48,9 @@ import com.example.droidmentor.R
 
 @Composable
 fun ChatInput(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSend: (String) -> Unit = {},
+    placeholder: @Composable (() -> Unit)? = null,
 ) {
     var chatInput by remember { mutableStateOf("") }
 
@@ -68,6 +70,7 @@ fun ChatInput(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextField(
+                placeholder = placeholder,
                 value = chatInput,
                 onValueChange = {
                     chatInput = it
@@ -92,7 +95,7 @@ fun ChatInput(
                         .graphicsLayer(alpha = sendAlpha),
                     contentPadding = PaddingValues(5.dp),
                     onClick = {
-
+                        onSend(chatInput)
                     }
                 ) {
                     Icon(

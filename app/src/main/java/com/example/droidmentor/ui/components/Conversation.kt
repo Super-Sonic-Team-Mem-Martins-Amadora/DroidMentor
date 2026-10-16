@@ -15,7 +15,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -36,6 +38,12 @@ fun Conversation(
 ) {
     val lazylistState = rememberLazyListState()
 
+    val messages by remember {
+        derivedStateOf {
+            chat.messages
+        }
+    }
+
     val topAlpha by animateFloatAsState(if (lazylistState.canScrollForward) 1f else 0f, label = "topFade")
     val bottomAlpha by animateFloatAsState(if (lazylistState.canScrollBackward) 1f else 0f, label = "bottomFade")
     Box(
@@ -48,7 +56,7 @@ fun Conversation(
             item {
                 bottom?.invoke()
             }
-            items(chat.messages.reversed()) { msg ->
+            items(messages.reversed()) { msg ->
                 Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
