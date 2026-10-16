@@ -84,11 +84,12 @@ fun ChatScreen(
     var click by remember { mutableIntStateOf(0) }
     val uriHandler = LocalUriHandler.current
     val logo = @Composable {
-        Icon(
-            painter = painterResource(R.drawable.logo),
-            contentDescription = "DroidMentor",
+        DroidIcon(
+            iconFile = R.drawable.logo,
+            iconSize = 50.dp,
+            iconDesc = "DroidMentor",
             tint = Color.Unspecified,
-            modifier = Modifier.size(50.dp)
+            modifier = Modifier
                 .clickable(
                     interactionSource = null,
                     indication = null,
@@ -96,7 +97,7 @@ fun ChatScreen(
                     click++
                     if (click >= 15) {
                         click = 0
-                        val url = "https://www.youtube.com/watch?v=szby7ZHLnkA"
+                        val url = "https://youtu.be/szby7ZHLnkA"
                         uriHandler.openUri(url)
                     }
                 }
@@ -148,17 +149,17 @@ fun ChatScreen(
                 Conversation(
                     conversation,
                     bottom = {
-                        Box(
+                        Column(
                             modifier = Modifier.fillMaxWidth()
                         ) {
+                            Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "DroidMentor can make mistakes. Please double-check responses.",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.surfaceDim,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier.align(alignment = Alignment.TopCenter)
                             )
-                            Spacer(modifier = Modifier.height(125.dp))
+                            Spacer(modifier = Modifier.height(110.dp))
                         }
                     },
                     modifier = Modifier.padding(horizontal = 10.dp)
@@ -307,16 +308,7 @@ fun NoChatScreenPreview() {
         true
     )
 
-    val aiMSG = listOf(
-        "I'm sorry, im unable to assist with your request.",
-        "Can you please try again?",
-        "Try again later.",
-        "Service Unavailable",
-        "undefined",
-        "no",
-        "I don't know what you mean, please rephrase.",
-        "I'm unable to assist with that."
-    )
+    val aiMSG = listOf("Reply hazy try again.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Go for it!", "You will have to wait.", "Ask again later.", "Concentrate and ask again.", "Never going to happen!", "The odds of that happening are pretty slim.", "My reply is no.", "My sources say no.", "Very doubtful.", "No.", "I have no response for that question...", "Why would I tell you?", "Forget about it.", "Don't bet on it.", "Who knows?", "Without a doubt.", "You may rely on it.", "Outlook good.", "Probably.", "Most likely.", "This is not the Bot you're looking for ༼ﾉ۞⌂۞༽ﾉ", "There's a pretty good chance.", "No, don't even think about.", "Yes, in due time.", "It is certain.", "Signs point to yes.", "Yes definitely.", "As I see it, yes.", "Yes.", "Signs point to yes.")
 
     val msgs = remember { mutableStateListOf<Msg>() }
 

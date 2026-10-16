@@ -132,7 +132,7 @@ fun ChatBubble(
                         val clip = ClipData.newPlainText("AI Message", content)
                         clipboard.setPrimaryClip(clip)
                     },
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(35.dp)
                 )
                 IconButton(
                     icon = {
