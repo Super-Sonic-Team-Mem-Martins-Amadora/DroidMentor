@@ -34,6 +34,7 @@ fun ChatList(
     withTimestamp: Boolean = false,
     topFade: Boolean = false,
     bottomFade: Boolean = false,
+    bottom: (@Composable ()-> Unit)? = null
 ){
 
     // Backwards -> Top
@@ -61,6 +62,11 @@ fun ChatList(
                     },
                     lastDateModified = if (withTimestamp) chat.lastDateModified else null,
                 )
+            }
+            if (bottom != null) {
+                item() {
+                    bottom()
+                }
             }
         }
         if (topFade) {

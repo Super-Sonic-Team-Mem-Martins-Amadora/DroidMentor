@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -19,7 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +45,8 @@ fun AllChats(
 
     val lazyListState = rememberLazyListState()
 
+    var filteredList by remember { mutableStateOf(chatList) }
+
     // firstVisibleItemIndex -> first visible item
     // firstVisibleItemScrollOffset -> pixels quantity that past the first item
     // derivedStateOf -> only recomposes when the calculate state changes the state
@@ -60,20 +65,20 @@ fun AllChats(
                 IconButton(
                     icon = {
                         DroidIcon(
-                            iconFile = R.drawable.menu_square,
+                            iconFile = R.drawable.burger,
                             iconDesc = "Sidebar",
-                            iconSize = 24.dp
+                            iconSize = 40.dp
                         )
                     },
                     onClick = {},
-                    modifier = Modifier.size(48.dp)
+                    modifier = Modifier.size(40.dp)
                 )
             },
             icon = {
                 DroidIcon(
                     iconFile = R.drawable.chat_bubble,
                     iconDesc = "Chat Bubble",
-                    iconSize = 24.dp
+                    iconSize = 40.dp
                 )
             },
             modifier = Modifier.padding(20.dp)
@@ -94,14 +99,15 @@ fun AllChats(
                     DroidIcon(
                         iconFile = R.drawable.add,
                         iconDesc = "New Chat",
-                        iconSize = 24.dp)
+                        iconSize = 24.dp
+                    )
                 },
                 text = {
                     Text("New Chat")
                 },
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.border(
                     width = 2.dp,
                     MaterialTheme.colorScheme.outlineVariant,
@@ -123,16 +129,24 @@ fun AllChats(
         ) {
             SearchInput(
                 onHandler = { input ->
-                    Log.d("teste", input)
+                    filteredList = chatList.filter { chat ->
+                        chat.title.contains(input, ignoreCase = true)
+                    }
                 },
                 modifier = Modifier.fillMaxWidth()
             )
             ChatList(
-                chatList = chatList,
+                chatList = filteredList,
                 lazyListState = lazyListState,
                 modifier = Modifier.fillMaxWidth(),
                 withTimestamp = true,
-                topFade = true
+                topFade = true,
+                bottomFade = true,
+                bottom = {
+                    Spacer(
+                        modifier = Modifier.size(10.dp)
+                    )
+                }
             )
         }
 
