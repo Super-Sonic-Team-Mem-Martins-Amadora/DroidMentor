@@ -50,7 +50,9 @@ val settingsOptions = arrayOf(
 )
 
 @Composable
-fun Settings(){
+fun Settings(
+    onBack: () -> Unit = {}
+){
     Scaffold(
         topBar = {
             Column {
@@ -65,7 +67,7 @@ fun Settings(){
                                     iconSize = 24.dp,
                                 )
                             },
-                            onClick = {},
+                            onClick = onBack,
                             modifier = Modifier.size(24.dp)
                         )
                     },

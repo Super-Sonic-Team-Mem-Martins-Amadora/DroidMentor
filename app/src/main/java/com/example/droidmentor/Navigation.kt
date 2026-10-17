@@ -1,7 +1,7 @@
 package com.example.droidmentor
 
 sealed class Navigation(val route: String) {
-    data object Chat : Navigation("chat") {
+    data object Chat : Navigation("chat/{chatIndex}") {
         fun createRoute(chatIndex: Int): String = "chat/${chatIndex}"
     }
     data object NewChat : Navigation("newChat")

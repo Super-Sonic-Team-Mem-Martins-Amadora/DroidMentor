@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -33,7 +34,8 @@ fun ChatList(
     withTimestamp: Boolean = false,
     topFade: Boolean = false,
     bottomFade: Boolean = false,
-    bottom: (@Composable ()-> Unit)? = null
+    bottom: (@Composable ()-> Unit)? = null,
+    onOpenChat: (Int) -> Unit = {}
 ){
 
     // Backwards -> Top
@@ -49,10 +51,12 @@ fun ChatList(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
         ) {
-            items(chatList) { chat ->
+            itemsIndexed(chatList) { i,chat ->
                 ChatButton(
                     chatTitle = chat.title,
-                    onClick = {},
+                    onClick = {
+                        onOpenChat(i)
+                    },
                     icon = {
                         DroidIcon(
                             iconFile = R.drawable.chat,

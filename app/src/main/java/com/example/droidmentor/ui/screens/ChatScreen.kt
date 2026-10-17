@@ -62,6 +62,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun ChatScreen(
     onSend: (String) -> Unit = {},
     conversation: Chat = Chat(),
+    onOpenSidebar: () -> Unit = {}
 ){
     val messages by remember {
         derivedStateOf {
@@ -123,9 +124,7 @@ fun ChatScreen(
                             iconDesc = "Sidebar"
                         )
                     },
-                    onClick = {
-
-                    }
+                    onClick = onOpenSidebar
                 )
             },
             icon = if (getInvertedLogosAlpha() != 0f) logo else null,

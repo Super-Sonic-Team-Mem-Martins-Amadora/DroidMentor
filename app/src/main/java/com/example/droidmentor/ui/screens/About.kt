@@ -30,7 +30,9 @@ import com.example.droidmentor.ui.components.spacing
 const val version = "1.0"
 
 @Composable
-fun About(){
+fun About(
+    onBack: () -> Unit = {}
+){
     Scaffold(
         topBar = {
             Column{
@@ -45,7 +47,7 @@ fun About(){
                                     iconSize = 24.dp,
                                 )
                             },
-                            onClick = {},
+                            onClick = onBack,
                             modifier = Modifier.size(24.dp)
                         )
                     },

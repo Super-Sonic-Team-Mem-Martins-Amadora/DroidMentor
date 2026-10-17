@@ -41,7 +41,12 @@ import java.time.LocalDateTime
 
 @Composable
 fun Sidebar(
-    chatList: List<Chat>
+    chatList: List<Chat>,
+    onCloseSidebar: () -> Unit = {},
+    onOpenAbout: () -> Unit = {},
+    onOpenSettings: () -> Unit = {},
+    onOpenAllChats: () -> Unit = {},
+    onOpenChat: (Int) -> Unit = {},
 ){
 
     val lazyListState = rememberLazyListState()
@@ -58,7 +63,7 @@ fun Sidebar(
                             iconSize = headerSize
                         )
                     },
-                    onClick = {},
+                    onClick = onCloseSidebar,
                     modifier = Modifier.size(headerSize)
                 )
             },
@@ -88,7 +93,7 @@ fun Sidebar(
         ) {
             DroidButton(
                 label = "All Chats",
-                onClick = {},
+                onClick = onOpenAllChats,
                 modifier = Modifier.fillMaxWidth(),
                 alignLeft = true,
                 border = BorderStroke(
@@ -124,7 +129,8 @@ fun Sidebar(
                     bottom = {
                         Spacer(modifier = Modifier.size(80.dp)
                         )
-                    }
+                    },
+                    onOpenChat = onOpenChat
                 )
                 Box(
                     modifier = Modifier
@@ -150,7 +156,7 @@ fun Sidebar(
                         .padding(bottom = 20.dp)
                 ) {
                     ExtendedFloatingActionButton(
-                        onClick = {},
+                        onClick = onOpenAbout,
                         icon = {
                             DroidIcon(
                                 iconFile = R.drawable.info,
@@ -171,7 +177,7 @@ fun Sidebar(
                         )
                     )
                     ExtendedFloatingActionButton(
-                        onClick = {},
+                        onClick = onOpenSettings,
                         icon = {
                             DroidIcon(
                                 iconFile = R.drawable.settings,

@@ -39,7 +39,10 @@ import java.time.LocalDateTime
 
 @Composable
 fun AllChats(
-    chatList: List<Chat>
+    chatList: List<Chat>,
+    onOpenSidebar: () -> Unit = {},
+    onOpenNewChat: () -> Unit = {},
+    onOpenChat: (Int) -> Unit = {}
 ){
 
     val lazyListState = rememberLazyListState()
@@ -69,7 +72,7 @@ fun AllChats(
                             iconSize = headerSize
                         )
                     },
-                    onClick = {},
+                    onClick = onOpenSidebar,
                     modifier = Modifier.size(headerSize)
                 )
             },
@@ -92,7 +95,7 @@ fun AllChats(
             to shrink to just an icon naturally
             */
             ExtendedFloatingActionButton(
-                onClick = {},
+                onClick = onOpenNewChat,
                 expanded = expanded,
                 icon = {
                     DroidIcon(
@@ -145,7 +148,8 @@ fun AllChats(
                     Spacer(
                         modifier = Modifier.size(10.dp)
                     )
-                }
+                },
+                onOpenChat = onOpenChat
             )
         }
 
