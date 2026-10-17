@@ -23,6 +23,7 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
+import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.components.spacing
 
 data class SettingButton(
@@ -64,22 +65,22 @@ fun Settings(
                                 DroidIcon(
                                     iconFile = R.drawable.back,
                                     iconDesc = "Back",
-                                    iconSize = 24.dp,
+                                    iconSize = headerSize,
                                 )
                             },
                             onClick = onBack,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(headerSize)
                         )
                     },
                     icon = {
                         DroidIcon(
                             iconFile = R.drawable.settings,
                             iconDesc = "Settings",
-                            iconSize = 24.dp
+                            iconSize = headerSize
                         )
-                    }
+                    },
+                    modifier = Modifier.padding(20.dp)
                 )
-                Spacer(Modifier.height(spacing))
             }
 
         },
@@ -100,6 +101,7 @@ fun Settings(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .padding(horizontal = 20.dp)
         ) {
             Column(
                 modifier = Modifier

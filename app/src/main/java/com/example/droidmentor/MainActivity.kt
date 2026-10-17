@@ -4,8 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.compose.DefaultNavTransitions
 import androidx.navigation.navArgument
 import com.example.droidmentor.core.domain.Account
 import com.example.droidmentor.core.domain.Chat
@@ -33,6 +38,7 @@ import com.example.droidmentor.ui.screens.Sidebar
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
 
 class MainActivity : ComponentActivity() {
@@ -61,7 +67,11 @@ class MainActivity : ComponentActivity() {
 
                 var draft by remember { mutableStateOf(Chat()) }
 
-                NavHost(navController, startDestination = Navigation.NewChat.route) {
+                NavHost(
+                    navController,
+                    startDestination = Navigation.NewChat.route,
+                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                    ) {
                     composable(Navigation.NewChat.route) {
 
                         val scope = rememberCoroutineScope()
@@ -79,6 +89,7 @@ class MainActivity : ComponentActivity() {
                                     conversations.add(chat)
                                     chat.title = it
                                 }
+                                chat.lastDateModified = LocalDateTime.now()
                                 chat.messages.add(
                                     Msg(it, user)
                                 )
@@ -108,6 +119,7 @@ class MainActivity : ComponentActivity() {
                                 chat.messages.add(
                                     Msg(it, user)
                                 )
+                                chat.lastDateModified = LocalDateTime.now()
                                 scope.launch {
                                     delay(1500.milliseconds)
                                     chat.messages.add(Msg(aiMSG.random(), ai))

@@ -129,7 +129,7 @@ fun ChatScreen(
                 )
             },
             icon = if (getInvertedLogosAlpha() != 0f) logo else null,
-            modifier = Modifier.height(headerSize + 3.dp).padding(top = 20.dp).padding(horizontal = 20.dp)
+            modifier = Modifier.padding(top = 20.dp).padding(horizontal = 20.dp)
         )
     }
 

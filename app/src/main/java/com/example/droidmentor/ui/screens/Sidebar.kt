@@ -153,7 +153,7 @@ fun Sidebar(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
-                        .padding(bottom = 20.dp)
+                        .padding(bottom = 17.dp)
                 ) {
                     ExtendedFloatingActionButton(
                         onClick = onOpenAbout,

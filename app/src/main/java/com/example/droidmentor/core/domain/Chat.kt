@@ -7,7 +7,7 @@ class Chat(
     val messages: MutableList<Msg> = mutableStateListOf<Msg>(),
     var title: String = "New Chat",
     val createdDate: LocalDateTime = LocalDateTime.now(),
-    val lastDateModified: LocalDateTime? = null
+    var lastDateModified: LocalDateTime? = null
 ) {
 
 }
