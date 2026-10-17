@@ -51,6 +51,7 @@ import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.Logo
+import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 import com.example.droidmentor.ui.theme.comicSansFamily
 import kotlinx.coroutines.delay
@@ -87,7 +88,7 @@ fun ChatScreen(
     val logo = @Composable {
         DroidIcon(
             iconFile = R.drawable.logo,
-            iconSize = 50.dp,
+            iconSize = headerSize,
             iconDesc = "DroidMentor",
             tint = Color.Unspecified,
             modifier = Modifier
@@ -120,7 +121,7 @@ fun ChatScreen(
                     icon = {
                         DroidIcon(
                             iconFile = R.drawable.burger,
-                            iconSize = 50.dp,
+                            iconSize = headerSize,
                             iconDesc = "Sidebar"
                         )
                     },
@@ -128,7 +129,7 @@ fun ChatScreen(
                 )
             },
             icon = if (getInvertedLogosAlpha() != 0f) logo else null,
-            modifier = Modifier.padding(15.dp).padding(horizontal = 5.dp)
+            modifier = Modifier.padding(top = 20.dp).padding(horizontal = 20.dp)
         )
     }
 
