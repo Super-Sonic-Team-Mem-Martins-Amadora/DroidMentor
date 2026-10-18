@@ -33,6 +33,7 @@ import com.example.droidmentor.core.domain.Msg
 import com.example.droidmentor.ui.screens.About
 import com.example.droidmentor.ui.screens.AllChats
 import com.example.droidmentor.ui.screens.ChatScreen
+import com.example.droidmentor.ui.screens.Easter
 import com.example.droidmentor.ui.screens.Settings
 import com.example.droidmentor.ui.screens.Sidebar
 import com.example.droidmentor.ui.theme.DroidMentorTheme
@@ -195,6 +196,18 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Navigation.Settings.route) {
                         Settings(
+                            onBack = {
+                                navController.popBackStack()
+                            },
+                            onEasterEgg = {
+                                navController.navigate(Navigation.Easter.route) {
+                                    launchSingleTop = true
+                                }
+                            }
+                        )
+                    }
+                    composable(Navigation.Easter.route) {
+                        Easter(
                             onBack = {
                                 navController.popBackStack()
                             }

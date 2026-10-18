@@ -9,4 +9,5 @@ sealed class Navigation(val route: String) {
     data object Sidebar : Navigation("sidebar")
     data object Settings : Navigation("settings")
     data object About : Navigation("about")
+    data object Easter : Navigation("easter")
 }

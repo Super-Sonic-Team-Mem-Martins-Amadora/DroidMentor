@@ -51,7 +51,10 @@ private val easterEggs = arrayOf(
 )
 
 @Composable
-fun Easter(dark : Boolean = isSystemInDarkTheme()){
+fun Easter(
+    dark: Boolean = isSystemInDarkTheme(),
+    onBack: () -> Unit = {},
+){
     val easterEgg =
         when {
             dark -> easterEggs[0]
@@ -72,7 +75,7 @@ fun Easter(dark : Boolean = isSystemInDarkTheme()){
                                     iconSize = 24.dp,
                                 )
                             },
-                            onClick = {},
+                            onClick = onBack,
                             modifier = Modifier.size(24.dp)
                         )
                     },

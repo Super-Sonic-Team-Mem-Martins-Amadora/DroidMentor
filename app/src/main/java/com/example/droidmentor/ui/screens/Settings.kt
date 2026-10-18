@@ -52,7 +52,8 @@ val settingsOptions = arrayOf(
 
 @Composable
 fun Settings(
-    onBack: () -> Unit = {}
+    onBack: () -> Unit = {},
+    onEasterEgg: () -> Unit = {}
 ){
     Scaffold(
         topBar = {
@@ -92,7 +93,7 @@ fun Settings(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null, // no ripple, so it stays invisible
-                        onClick = {} //Easter egg
+                        onClick = onEasterEgg //Easter egg
                     )
             )
         }
