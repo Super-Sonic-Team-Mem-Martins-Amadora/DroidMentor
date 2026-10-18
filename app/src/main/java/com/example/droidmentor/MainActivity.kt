@@ -185,8 +185,11 @@ class MainActivity : ComponentActivity() {
                                 navController.safePopBackStack()
                             },
                             onOpenNewChat = {
+                                draft = Chat()
                                 navController.navigate(Navigation.NewChat.route) {
-                                    launchSingleTop = true
+                                    popUpTo(Navigation.Chat.route) {
+                                        inclusive = true
+                                    }
                                 }
                             },
                             onOpenSettings = {
