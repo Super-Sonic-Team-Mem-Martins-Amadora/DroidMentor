@@ -6,6 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -48,6 +59,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DroidMentorTheme {
+
                 val navController = rememberNavController()
 
                 val conversations = remember { mutableStateListOf<Chat>() }
@@ -73,7 +85,8 @@ class MainActivity : ComponentActivity() {
                     startDestination = Navigation.NewChat.route,
                     modifier = Modifier.background(MaterialTheme.colorScheme.background),
                     ) {
-                    composable(Navigation.NewChat.route) {
+                    composable(
+                        Navigation.NewChat.route) {
 
                         val scope = rememberCoroutineScope()
 
@@ -155,14 +168,24 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                    composable(Navigation.Sidebar.route) {
+                    composable(
+                        Navigation.Sidebar.route,
+                        enterTransition = {
+                            slideInHorizontally(
+                                initialOffsetX = { -it },
+                                animationSpec = tween(durationMillis = 700)
+                            )},
+                        exitTransition = { slideOutHorizontally(
+                            targetOffsetX  = { -it },
+                            animationSpec = tween(durationMillis = 700)
+                        )}) {
                         Sidebar(
                             chatList = conversations,
                             onCloseSidebar = {
-                                navController.popBackStack()
+                                navController.safePopBackStack()
                             },
-                            onOpenAbout = {
-                                navController.navigate(Navigation.About.route) {
+                            onOpenNewChat = {
+                                navController.navigate(Navigation.NewChat.route) {
                                     launchSingleTop = true
                                 }
                             },
@@ -190,26 +213,44 @@ class MainActivity : ComponentActivity() {
                     composable(Navigation.About.route) {
                         About(
                             onBack = {
-                                navController.popBackStack()
+                                navController.safePopBackStack()
                             }
                         )
                     }
-                    composable(Navigation.Settings.route) {
+                    composable(
+                        Navigation.Settings.route,
+                        enterTransition = { slideInVertically(
+                            initialOffsetY = { it },
+                            animationSpec = tween(700)
+                        )},
+                        exitTransition = { slideOutVertically(
+                                targetOffsetY = { it },
+                                animationSpec = tween(700)
+                            )
+                        }) {
                         Settings(
                             onBack = {
-                                navController.popBackStack()
+                                navController.safePopBackStack()
                             },
                             onEasterEgg = {
                                 navController.navigate(Navigation.Easter.route) {
                                     launchSingleTop = true
                                 }
+                            },
+                            onOpenAbout = {
+                                navController.navigate(Navigation.About.route) {
+                                    launchSingleTop = true
+                                }
                             }
                         )
                     }
-                    composable(Navigation.Easter.route) {
+                    composable(
+                        Navigation.Easter.route,
+                        enterTransition = { scaleIn(tween(1000)) },
+                        exitTransition = { scaleOut(tween(1000)) }) {
                         Easter(
                             onBack = {
-                                navController.popBackStack()
+                                navController.safePopBackStack()
                             }
                         )
                     }

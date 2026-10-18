@@ -43,7 +43,7 @@ import java.time.LocalDateTime
 fun Sidebar(
     chatList: List<Chat>,
     onCloseSidebar: () -> Unit = {},
-    onOpenAbout: () -> Unit = {},
+    onOpenNewChat: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
     onOpenAllChats: () -> Unit = {},
     onOpenChat: (Int) -> Unit = {},
@@ -156,16 +156,16 @@ fun Sidebar(
                         .padding(bottom = 17.dp)
                 ) {
                     ExtendedFloatingActionButton(
-                        onClick = onOpenAbout,
+                        onClick = onOpenSettings,
                         icon = {
                             DroidIcon(
-                                iconFile = R.drawable.info,
-                                iconDesc = "About",
+                                iconFile = R.drawable.settings,
+                                iconDesc = "Settings",
                                 iconSize = 24.dp
                             )
                         },
                         text = {
-                            Text("About")
+                            Text("Settings")
                         },
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -177,16 +177,16 @@ fun Sidebar(
                         )
                     )
                     ExtendedFloatingActionButton(
-                        onClick = onOpenSettings,
+                        onClick = onOpenNewChat,
                         icon = {
                             DroidIcon(
-                                iconFile = R.drawable.settings,
-                                iconDesc = "Settings",
+                                iconFile = R.drawable.add,
+                                iconDesc = "New Chat",
                                 iconSize = 24.dp
                             )
                         },
                         text = {
-                            Text("Settings")
+                            Text("New Chat")
                         },
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,

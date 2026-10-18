@@ -31,30 +31,36 @@ data class SettingButton(
     val action : () -> Unit
 )
 
-val settingsOptions = arrayOf(
-    SettingButton(
-        label = "Theme",
-        action = {}
-    ),
-    SettingButton(
-        label = "Chat Settings",
-        action = {}
-    ),
-    SettingButton(
-        label = "Permissions",
-        action = {}
-    ),
-    SettingButton(
-        label = "API KEYS",
-        action = {}
-    ),
-)
-
 @Composable
 fun Settings(
     onBack: () -> Unit = {},
-    onEasterEgg: () -> Unit = {}
+    onEasterEgg: () -> Unit = {},
+    onOpenAbout: () -> Unit = {}
 ){
+
+    val settingsOptions = arrayOf(
+        SettingButton(
+            label = "Theme",
+            action = {}
+        ),
+        SettingButton(
+            label = "Chat Settings",
+            action = {}
+        ),
+        SettingButton(
+            label = "Permissions",
+            action = {}
+        ),
+        SettingButton(
+            label = "API KEYS",
+            action = {}
+        ),
+        SettingButton(
+            label = "About",
+            action = onOpenAbout
+        ),
+    )
+
     Scaffold(
         topBar = {
             Column {
