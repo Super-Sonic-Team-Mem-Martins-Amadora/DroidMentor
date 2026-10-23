@@ -57,6 +57,7 @@ fun ChatBubble(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     author: String? = null,
+    onRefresh: () -> Unit = {}
 ){
     val context = LocalContext.current
     val clipboard = context.getSystemService(ClipboardManager::class.java)
@@ -142,9 +143,7 @@ fun ChatBubble(
                             iconDesc = "Refresh"
                         )
                     },
-                    onClick = {
-
-                    },
+                    onClick = onRefresh,
                     modifier = Modifier.size(40.dp)
                 )
             }

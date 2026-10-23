@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -34,6 +35,7 @@ import java.time.LocalDateTime
 fun Conversation(
     chat: Chat,
     modifier: Modifier = Modifier,
+    onRefresh: (Int) -> Unit = {},
     bottom: (@Composable () -> Unit)? = null,
 ) {
     val lazylistState = rememberLazyListState()
@@ -56,7 +58,7 @@ fun Conversation(
             item {
                 bottom?.invoke()
             }
-            items(messages.reversed()) { msg ->
+            itemsIndexed(messages.reversed()) { i, msg ->
                 Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -65,6 +67,9 @@ fun Conversation(
                         msg.content,
                         acc.isUser,
                         author = acc.displayName,
+                        onRefresh = {
+                            onRefresh(i)
+                        },
                         modifier = Modifier.align(if (acc.isUser) Alignment.CenterEnd else Alignment.CenterStart)
                     )
                 }

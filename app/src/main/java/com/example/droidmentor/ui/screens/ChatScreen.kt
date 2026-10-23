@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -54,6 +55,7 @@ import com.example.droidmentor.ui.components.Logo
 import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.theme.DroidMentorTheme
 import com.example.droidmentor.ui.theme.comicSansFamily
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -62,6 +64,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun ChatScreen(
     onSend: (String) -> Unit = {},
+    onRefresh: (Int) -> Unit = {},
     conversation: Chat = Chat(),
     onOpenSidebar: () -> Unit = {}
 ){
@@ -84,6 +87,8 @@ fun ChatScreen(
     }
 
     var click by remember { mutableIntStateOf(0) }
+    var ball by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
     val logo = @Composable {
         DroidIcon(
@@ -97,11 +102,12 @@ fun ChatScreen(
                     indication = null,
                 ) {
                     click++
-                    if (click >= 15) {
-                        click = 0
+                    if (click < 15) return@clickable
+                    if (click == 15) {
                         val url = "https://youtu.be/szby7ZHLnkA"
                         uriHandler.openUri(url)
                     }
+                    click = 0
                 }
                 .graphicsLayer { alpha = getInvertedLogosAlpha() }
         )
@@ -148,6 +154,7 @@ fun ChatScreen(
             if (!newChat) {
                 Conversation(
                     conversation,
+                    onRefresh = onRefresh,
                     bottom = {
                         Column(
                             modifier = Modifier.fillMaxWidth()
@@ -174,10 +181,22 @@ fun ChatScreen(
                     Column {
                         Spacer(Modifier.height(30.dp))
                         Logo(
+                            modifier = Modifier
+                                .clickable(
+                                    interactionSource = null,
+                                    indication = null,
+                                ) {
+                                    click++
+                                    if (click < 20) return@clickable
+                                    if (click == 20) {
+                                        ball = true
+                                    }
+                                    click = 0
+                                },
                             label = {
                                 Box {
                                     Text(
-                                        text = "DroidMentor",
+                                        text = if (!ball) "DroidMentor" else "8Ball",
                                         style = TextStyle(
                                             color = MaterialTheme.colorScheme.primaryContainer,
                                             fontFamily = comicSansFamily,
@@ -188,7 +207,7 @@ fun ChatScreen(
                                         ),
                                     )
                                     Text(
-                                        text = "DroidMentor",
+                                        text = if (!ball) "DroidMentor" else "8Ball",
                                         style = TextStyle(
                                             color = MaterialTheme.colorScheme.primary,
                                             drawStyle = Stroke(
@@ -210,7 +229,9 @@ fun ChatScreen(
             ChatInput(
                 onSend = { msg ->
                     Log.d("CHAT", msg)
-                    onSend(msg)
+                    if (ball) eightBall(msg, conversation, scope) else {
+                        onSend(msg)
+                    }
                 },
                 placeholder = if (newChat) inputPlaceholder else null,
                 modifier = Modifier
@@ -219,6 +240,17 @@ fun ChatScreen(
                     .align(Alignment.BottomCenter)
             )
         }
+    }
+}
+
+private fun eightBall(msg: String, chat: Chat, scope: CoroutineScope) {
+    chat.messages.add(
+        Msg(msg, Account("sonic", "Sonic", true))
+    )
+    val aiMSG = listOf("Reply hazy try again.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Go for it!", "You will have to wait.", "Ask again later.", "Concentrate and ask again.", "Never going to happen!", "The odds of that happening are pretty slim.", "My reply is no.", "My sources say no.", "Very doubtful.", "No.", "I have no response for that question...", "Why would I tell you?", "Forget about it.", "Don't bet on it.", "Who knows?", "Without a doubt.", "You may rely on it.", "Outlook good.", "Probably.", "Most likely.", "This is not the Bot you're looking for ༼ﾉ۞⌂۞༽ﾉ", "There's a pretty good chance.", "No, don't even think about.", "Yes, in due time.", "It is certain.", "Signs point to yes.", "Yes definitely.", "As I see it, yes.", "Yes.", "Signs point to yes.")
+    scope.launch {
+        delay(1500.milliseconds)
+        chat.messages.add(Msg(aiMSG.random(), Account("ai", "8Ball", false)))
     }
 }
 
@@ -287,7 +319,7 @@ fun ChatScreenPreview() {
                 }
 
             },
-            chat
+            conversation = chat
         )
     }
 }
@@ -333,7 +365,7 @@ fun NoChatScreenPreview() {
                 }
 
             },
-            chat
+            conversation = chat
         )
     }
 }
