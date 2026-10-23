@@ -13,11 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.components.Dialog
 import com.example.droidmentor.ui.components.DroidButton
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
@@ -28,7 +32,8 @@ import com.example.droidmentor.ui.components.spacing
 
 data class SettingButton(
     val label : String,
-    val action : () -> Unit
+    val action : () -> Unit,
+    val content: @Composable ()-> Unit,
 )
 
 @Composable
@@ -38,26 +43,65 @@ fun Settings(
     onOpenAbout: () -> Unit = {}
 ){
 
+    var openAlertDialog by remember { mutableStateOf(false) }
+    var currentLabel by remember { mutableStateOf("") }
+
     val settingsOptions = arrayOf(
         SettingButton(
             label = "Theme",
-            action = {}
+            action = {
+                currentLabel = "Theme"
+                openAlertDialog = true
+            },
+            content = {
+
+                DroidButton(
+                    label = "Light",
+                    onClick = {},
+                    alignLeft = true,
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.chat_bubble,
+                            iconSize = 24.dp,
+                            iconDesc = "Chat Bubble"
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                DroidButton(
+                    label = "Dark",
+                    alignLeft = true,
+                    onClick = {},
+                    icon = {
+                        DroidIcon(
+                            iconFile = R.drawable.chat_bubble,
+                            iconSize = 24.dp,
+                            iconDesc = "Chat Bubble"
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         ),
         SettingButton(
             label = "Chat Settings",
-            action = {}
+            action = {},
+            content = {}
         ),
         SettingButton(
             label = "Permissions",
-            action = {}
+            action = {},
+            content = {}
         ),
         SettingButton(
             label = "API KEYS",
-            action = {}
+            action = {},
+            content = {}
         ),
         SettingButton(
             label = "About",
-            action = onOpenAbout
+            action = onOpenAbout,
+            content = {}
         ),
     )
 
@@ -123,7 +167,18 @@ fun Settings(
                         alignLeft = true,
                         modifier = Modifier.fillMaxWidth()
                     )
+                    if(openAlertDialog && option.label == currentLabel) {
+                        Dialog(
+                            onDismissRequest = {
+                                openAlertDialog = false
+                            },
+                            onConfirmation = {},
+                            title = option.label,
+                            content = option.content
+                        )
+                    }
                 }
+
             }
         }
     }
@@ -132,7 +187,7 @@ fun Settings(
 @Preview(showBackground = true)
 @Composable
 fun SettingsPreview(){
-    PreviewBox(padding = 20.dp, dark = false) {
+    PreviewBox(padding = 20.dp, dark = true) {
         Settings()
     }
 }
