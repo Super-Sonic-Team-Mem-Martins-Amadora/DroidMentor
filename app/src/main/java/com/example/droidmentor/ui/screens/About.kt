@@ -1,32 +1,36 @@
 package com.example.droidmentor.ui.screens
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.components.DroidButton
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.PreviewBox
 import com.example.droidmentor.ui.components.headerSize
-import com.example.droidmentor.ui.components.spacing
 
 const val version = "1.0"
 
@@ -34,6 +38,42 @@ const val version = "1.0"
 fun About(
     onBack: () -> Unit = {}
 ){
+    data class AboutButton(
+        val label : String,
+        val action : () -> Unit,
+        val icon : Unit? = null,
+    )
+
+    val aboutOptions = arrayOf(
+        AboutButton(
+            label = "Version $version",
+            //icon = DroidIcon(),
+            action = {
+               //copy to clipboard here
+            }
+        ),
+        AboutButton(
+            label = "Chat Settings",
+            //icon = DroidIcon(),
+            action = {}
+        ),
+        AboutButton(
+            label = "Permissions",
+            //icon = DroidIcon(),
+            action = {}
+        ),
+        AboutButton(
+            label = "API KEYS",
+            //icon = DroidIcon(),
+            action = {}
+        ),
+        AboutButton(
+            label = "About",
+            //icon = DroidIcon(),
+            action = {}
+        ),
+    )
+
     Scaffold(
         topBar = {
             Column{
@@ -87,6 +127,32 @@ fun About(
 
         }
     ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 20.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                aboutOptions.forEach { option ->
+                    DroidButton(
+                        label = option.label,
+                        onClick = option.action,
+                        alignLeft = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        }
+    }
+}
+/*
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -118,12 +184,12 @@ fun About(
 
         }
     }
-}
+*/
 
 @Preview(showBackground = true)
 @Composable
 fun AboutPreview(){
-    PreviewBox(padding = 20.dp, dark = true) {
+    PreviewBox(padding = 0.dp, dark = true) {
         About()
     }
 }
