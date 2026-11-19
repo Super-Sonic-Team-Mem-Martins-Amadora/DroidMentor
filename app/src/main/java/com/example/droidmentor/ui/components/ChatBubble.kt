@@ -57,12 +57,9 @@ fun ChatBubble(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     author: String? = null,
-    onRefresh: () -> Unit = {}
+    onRefresh: () -> Unit = {},
+    onCopy: () -> Unit = {},
 ){
-    val context = LocalContext.current
-    val clipboard = context.getSystemService(ClipboardManager::class.java)
-    val canCopy = !isUser
-
     val backgroundBubbleColor = if (isUser) {
         MaterialTheme.colorScheme.primaryContainer
     } else {
@@ -129,10 +126,7 @@ fun ChatBubble(
                             iconDesc = "Copy"
                         )
                     },
-                    onClick = {
-                        val clip = ClipData.newPlainText("AI Message", content)
-                        clipboard.setPrimaryClip(clip)
-                    },
+                    onClick = onCopy,
                     modifier = Modifier.size(35.dp)
                 )
                 IconButton(

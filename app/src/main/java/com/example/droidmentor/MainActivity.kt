@@ -46,7 +46,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DroidMentorTheme {
-
                 val navController = rememberNavController()
 
                 val conversations = remember { mutableStateListOf<Chat>() }

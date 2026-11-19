@@ -36,6 +36,7 @@ fun Conversation(
     chat: Chat,
     modifier: Modifier = Modifier,
     onRefresh: (Int) -> Unit = {},
+    onCopy: (String) -> Unit = {},
     bottom: (@Composable () -> Unit)? = null,
 ) {
     val lazylistState = rememberLazyListState()
@@ -69,6 +70,9 @@ fun Conversation(
                         author = acc.displayName,
                         onRefresh = {
                             onRefresh(i)
+                        },
+                        onCopy = {
+                            onCopy(msg.content)
                         },
                         modifier = Modifier.align(if (acc.isUser) Alignment.CenterEnd else Alignment.CenterStart)
                     )
