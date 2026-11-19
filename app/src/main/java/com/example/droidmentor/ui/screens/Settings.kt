@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.droidmentor.R
@@ -57,12 +58,15 @@ fun Settings(
 
                 DroidButton(
                     label = "Light",
-                    onClick = {},
+                    onClick = {
+
+                    },
                     alignLeft = true,
                     icon = {
                         DroidIcon(
-                            iconFile = R.drawable.chat_bubble,
+                            iconFile = R.drawable.sonic,
                             iconSize = 24.dp,
+                            tint = Color.Unspecified,
                             iconDesc = "Chat Bubble"
                         )
                     },
@@ -74,8 +78,9 @@ fun Settings(
                     onClick = {},
                     icon = {
                         DroidIcon(
-                            iconFile = R.drawable.chat_bubble,
+                            iconFile = R.drawable.shadow,
                             iconSize = 24.dp,
+                            tint = Color.Unspecified,
                             iconDesc = "Chat Bubble"
                         )
                     },
@@ -172,7 +177,7 @@ fun Settings(
                             onDismissRequest = {
                                 openAlertDialog = false
                             },
-                            onConfirmation = {},
+                            confirmButton = {},
                             title = option.label,
                             content = option.content
                         )

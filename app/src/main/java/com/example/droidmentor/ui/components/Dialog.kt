@@ -1,5 +1,6 @@
 package com.example.droidmentor.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,15 +25,16 @@ import androidx.compose.ui.window.DialogWindowProvider
 fun Dialog(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    onConfirmation: (@Composable ()-> Unit)? = null,
+    confirmButton: (@Composable ()-> Unit)? = null,
     title: String? = null,
     content: (@Composable ()-> Unit)? = null
 ){
     AlertDialog(
         modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = onDismissRequest,
         confirmButton = {
-            onConfirmation?.invoke()
+            confirmButton?.invoke()
         },
         text = {
             // LocalView.current is the Android View that hosts the composable you’re in
@@ -41,7 +43,7 @@ fun Dialog(
             // sideEffect runs after every successful recomposition
             SideEffect {
                 // 1f -> full dark | 0f -> no dark
-                window?.setDimAmount(0.6f)
+                window?.setDimAmount(0.7f)
             }
             Column(
                 modifier = Modifier
@@ -83,7 +85,7 @@ fun DialogPreview(){
                 onDismissRequest = {
                     openAlertDialog = false
                 },
-                onConfirmation = {},
+                confirmButton = {},
                 title = "Theme"
             )
         }
