@@ -54,6 +54,7 @@ fun Loading() {
 fun ChatBubble(
     content: String,
     isUser: Boolean,
+    canCopy: Boolean,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     author: String? = null,
@@ -149,12 +150,12 @@ fun ChatBubble(
 @Composable
 fun UserChatBubblePreview() {
     PreviewBox(dark = true) {
-        ChatBubble(
+        /*ChatBubble(
             author = "User",
             content = "This is a preview User chat message!",
             isUser = true,
             isLoading = false,
-        )
+        )*/
     }
 }
 
@@ -162,12 +163,12 @@ fun UserChatBubblePreview() {
 @Composable
 fun LoadingChatBubblePreview() {
     PreviewBox (dark = true){
-        ChatBubble(
+        /*ChatBubble(
             author = "Ai",
             content = "...",
             isUser = false,
             isLoading = true,
-        )
+        )*/
     }
 }
 
@@ -175,12 +176,12 @@ fun LoadingChatBubblePreview() {
 @Composable
 fun AIChatBubblePreview() {
     PreviewBox {
-        ChatBubble(
+        /*ChatBubble(
             author = "Ai",
             content = "This is a preview AI chat message!",
             isUser = false,
             isLoading = false,
-        )
+        )*/
     }
 }
 
@@ -188,11 +189,11 @@ fun AIChatBubblePreview() {
 @Composable
 fun ChatBubbleLongPreview() {
     PreviewBox {
-        ChatBubble(
+        /*ChatBubble(
             author = "Ai",
             content = "This is a long preview chat message! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique nisl non dolor cursus, ac blandit sem vehicula. Praesent in orci ac eros vulputate scelerisque at vel urna. Nullam dolor arcu, tempus vel posuere sed, dictum in arcu. Aliquam in dui vehicula, tristique lorem sit amet, volutpat tortor. Etiam auctor non nunc et imperdiet. Suspendisse potenti. Etiam laoreet mi nec libero facilisis, eget rutrum nisi tincidunt. Maecenas tristique sapien vel felis porta viverra. Maecenas auctor lorem nibh, sed vestibulum orci euismod vitae. Nullam auctor dolor vitae euismod fringilla. Quisque enim odio, rutrum in mi at, sodales tristique turpis. Mauris vestibulum arcu vel velit dapibus, eu congue odio maximus. Quisque molestie venenatis euismod.",
             isUser = false,
             isLoading = false,
-        )
+        )*/
     }
 }

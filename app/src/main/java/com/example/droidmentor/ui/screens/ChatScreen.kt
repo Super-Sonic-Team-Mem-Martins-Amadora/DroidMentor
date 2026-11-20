@@ -46,6 +46,7 @@ import com.example.droidmentor.R
 import com.example.droidmentor.core.domain.Account
 import com.example.droidmentor.core.domain.Chat
 import com.example.droidmentor.core.domain.Msg
+import com.example.droidmentor.ui.ViewModels.ChatViewModel
 import com.example.droidmentor.ui.components.ChatInput
 import com.example.droidmentor.ui.components.Conversation
 import com.example.droidmentor.ui.components.DroidIcon
@@ -63,14 +64,12 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun ChatScreen(
-    onSend: (String) -> Unit = {},
-    onRefresh: (Int) -> Unit = {},
-    conversation: Chat = Chat(),
+    viewModel: ChatViewModel,
     onOpenSidebar: () -> Unit = {}
 ){
     val messages by remember {
         derivedStateOf {
-            conversation.messages
+            viewModel.conversation.messages
         }
     }
 
@@ -153,8 +152,10 @@ fun ChatScreen(
         ) {
             if (!newChat) {
                 Conversation(
-                    conversation,
-                    onRefresh = onRefresh,
+                    viewModel.conversation,
+                    onRefresh = { i ->
+                        viewModel.onRefresh(i)
+                    },
                     bottom = {
                         Column(
                             modifier = Modifier.fillMaxWidth()
@@ -169,6 +170,10 @@ fun ChatScreen(
                             Spacer(modifier = Modifier.height(110.dp))
                         }
                     },
+                    onCopy = { text ->
+                        viewModel.copyText("Message", text)
+                    },
+                    canCopy = { i -> viewModel.canCopyMessage(i) },
                     modifier = Modifier.padding(horizontal = 10.dp)
                 )
             }
@@ -229,8 +234,8 @@ fun ChatScreen(
             ChatInput(
                 onSend = { msg ->
                     Log.d("CHAT", msg)
-                    if (ball) eightBall(msg, conversation, scope) else {
-                        onSend(msg)
+                    if (ball) eightBall(msg, viewModel.conversation, scope) else {
+                        viewModel.onSend(msg)
                     }
                 },
                 placeholder = if (newChat) inputPlaceholder else null,
@@ -307,7 +312,7 @@ fun ChatScreenPreview() {
 
     val scope = rememberCoroutineScope()
 
-    DroidMentorTheme {
+    /*DroidMentorTheme {
         ChatScreen(
             {
                 chat.messages.add(
@@ -321,7 +326,7 @@ fun ChatScreenPreview() {
             },
             conversation = chat
         )
-    }
+    }*/
 }
 
 @Preview
@@ -353,7 +358,7 @@ fun NoChatScreenPreview() {
 
     val scope = rememberCoroutineScope()
 
-    DroidMentorTheme {
+    /*DroidMentorTheme {
         ChatScreen(
             {
                 chat.messages.add(
@@ -367,5 +372,5 @@ fun NoChatScreenPreview() {
             },
             conversation = chat
         )
-    }
+    }*/
 }

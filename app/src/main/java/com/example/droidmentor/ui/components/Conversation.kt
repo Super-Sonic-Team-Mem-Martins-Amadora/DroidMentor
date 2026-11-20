@@ -37,6 +37,7 @@ fun Conversation(
     modifier: Modifier = Modifier,
     onRefresh: (Int) -> Unit = {},
     onCopy: (String) -> Unit = {},
+    canCopy: (Int) -> Boolean = { false },
     bottom: (@Composable () -> Unit)? = null,
 ) {
     val lazylistState = rememberLazyListState()
@@ -67,6 +68,7 @@ fun Conversation(
                     ChatBubble(
                         msg.content,
                         acc.isUser,
+                        canCopy(i),
                         author = acc.displayName,
                         onRefresh = {
                             onRefresh(i)
