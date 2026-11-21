@@ -2,15 +2,15 @@ package com.example.droidmentor.ui.viewmodels.viewmodelstates
 
 import com.example.droidmentor.core.domain.Chat
 
-sealed class sidebarState {
+sealed class SidebarState {
 
-    data object Loading : sidebarState()
+    data object Loading : SidebarState()
 
     data class Content(
         val chatList: List<Chat>
-    ) : sidebarState()
+    ) : SidebarState()
 
     data class Error(
         val error: Throwable
-    ) : sidebarState()
+    ) : SidebarState()
 }

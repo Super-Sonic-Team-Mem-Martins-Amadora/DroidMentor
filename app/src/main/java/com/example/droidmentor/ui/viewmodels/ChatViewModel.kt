@@ -2,11 +2,7 @@ package com.example.droidmentor.ui.ViewModels
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -16,8 +12,6 @@ import com.example.droidmentor.core.domain.Account
 import com.example.droidmentor.core.domain.Chat
 import com.example.droidmentor.core.domain.Msg
 import com.example.droidmentor.ui.viewmodels.viewmodelstates.ChatScreenState
-import com.example.droidmentor.ui.viewmodels.viewmodelstates.sidebarState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
