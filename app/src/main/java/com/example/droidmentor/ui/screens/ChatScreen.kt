@@ -86,8 +86,6 @@ fun ChatScreen(
     }
 
     var click by remember { mutableIntStateOf(0) }
-    var ball by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
     val logo = @Composable {
         DroidIcon(
@@ -189,14 +187,9 @@ fun ChatScreen(
                             modifier = Modifier
                                 .clickable(
                                     interactionSource = null,
-                                    indication = null,
+                                    indication = null
                                 ) {
-                                    click++
-                                    if (click < 20) return@clickable
-                                    if (click == 20) {
-                                        ball = true
-                                    }
-                                    click = 0
+                                    viewModel.ballClick()
                                 },
                             label = {
                                 Box {
@@ -234,9 +227,7 @@ fun ChatScreen(
             ChatInput(
                 onSend = { msg ->
                     Log.d("CHAT", msg)
-                    if (ball) eightBall(msg, viewModel.conversation, scope) else {
-                        viewModel.onSend(msg)
-                    }
+                    viewModel.onSend(msg)
                 },
                 placeholder = if (newChat) inputPlaceholder else null,
                 modifier = Modifier
@@ -245,17 +236,6 @@ fun ChatScreen(
                     .align(Alignment.BottomCenter)
             )
         }
-    }
-}
-
-private fun eightBall(msg: String, chat: Chat, scope: CoroutineScope) {
-    chat.messages.add(
-        Msg(msg, Account("sonic", "Sonic", true))
-    )
-    val aiMSG = listOf("Reply hazy try again.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Go for it!", "You will have to wait.", "Ask again later.", "Concentrate and ask again.", "Never going to happen!", "The odds of that happening are pretty slim.", "My reply is no.", "My sources say no.", "Very doubtful.", "No.", "I have no response for that question...", "Why would I tell you?", "Forget about it.", "Don't bet on it.", "Who knows?", "Without a doubt.", "You may rely on it.", "Outlook good.", "Probably.", "Most likely.", "This is not the Bot you're looking for ༼ﾉ۞⌂۞༽ﾉ", "There's a pretty good chance.", "No, don't even think about.", "Yes, in due time.", "It is certain.", "Signs point to yes.", "Yes definitely.", "As I see it, yes.", "Yes.", "Signs point to yes.")
-    scope.launch {
-        delay(1500.milliseconds)
-        chat.messages.add(Msg(aiMSG.random(), Account("ai", "8Ball", false)))
     }
 }
 

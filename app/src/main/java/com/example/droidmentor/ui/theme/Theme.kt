@@ -41,8 +41,10 @@ fun DroidMentorTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    var theme = darkTheme;
+
     val colorScheme = when {
-        darkTheme -> DarkColorScheme
+        theme -> DarkColorScheme
         else -> LightColorScheme
     }
 
