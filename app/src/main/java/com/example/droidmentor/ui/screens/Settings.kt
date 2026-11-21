@@ -44,7 +44,6 @@ fun Settings(
     onOpenAbout: () -> Unit = {}
 ){
 
-    var openAlertDialog by remember { mutableStateOf(false) }
     var currentLabel by remember { mutableStateOf("") }
 
     val settingsOptions = arrayOf(
@@ -52,15 +51,12 @@ fun Settings(
             label = "Theme",
             action = {
                 currentLabel = "Theme"
-                openAlertDialog = true
             },
             content = {
 
                 DroidButton(
                     label = "Light",
-                    onClick = {
-
-                    },
+                    onClick = {},
                     alignLeft = true,
                     icon = {
                         DroidIcon(
@@ -168,14 +164,17 @@ fun Settings(
                 settingsOptions.forEach { option ->
                     DroidButton(
                         label = option.label,
-                        onClick = option.action,
+                        onClick = {
+                            currentLabel = option.label
+                            option.action()
+                        },
                         alignLeft = true,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    if(openAlertDialog && option.label == currentLabel) {
+                    if(option.label == currentLabel) {
                         Dialog(
                             onDismissRequest = {
-                                openAlertDialog = false
+                                currentLabel = ""
                             },
                             confirmButton = {},
                             title = option.label,
@@ -183,7 +182,6 @@ fun Settings(
                         )
                     }
                 }
-
             }
         }
     }

@@ -7,15 +7,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.toClipEntry
@@ -25,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.droidmentor.R
+import com.example.droidmentor.ui.components.AboutCredits
 import com.example.droidmentor.ui.components.DroidButton
 import com.example.droidmentor.ui.components.DroidIcon
 import com.example.droidmentor.ui.components.Header
@@ -41,36 +47,45 @@ fun About(
     data class AboutButton(
         val label : String,
         val action : () -> Unit,
-        val icon : Unit? = null,
+        val avatar : @Composable (() -> Unit)? = null,
     )
 
     val aboutOptions = arrayOf(
         AboutButton(
-            label = "Version $version",
-            //icon = DroidIcon(),
-            action = {
-               //copy to clipboard here
-            }
+            label = "Maximus Delorey",
+            action = {},
+            avatar = {
+                DroidIcon(
+                iconFile = R.drawable.shadow,
+                iconSize = 50.dp,
+                tint = Color.Unspecified,
+                iconDesc = "Chat Bubble"
+            )},
         ),
         AboutButton(
-            label = "Chat Settings",
-            //icon = DroidIcon(),
-            action = {}
+            label = "Manuel Abreu",
+            action = {},
+            avatar = {
+                DroidIcon(
+                    iconFile = R.drawable.tails,
+                    iconSize = 50.dp,
+                    tint = Color.Unspecified,
+                    iconDesc = "Chat Bubble"
+                )
+            },
+
         ),
         AboutButton(
-            label = "Permissions",
-            //icon = DroidIcon(),
-            action = {}
-        ),
-        AboutButton(
-            label = "API KEYS",
-            //icon = DroidIcon(),
-            action = {}
-        ),
-        AboutButton(
-            label = "About",
-            //icon = DroidIcon(),
-            action = {}
+            label = "Ricardo Martins",
+            action = {},
+            avatar = {
+                DroidIcon(
+                    iconFile = R.drawable.sonic,
+                    iconSize = 50.dp,
+                    tint = Color.Unspecified,
+                    iconDesc = "Chat Bubble"
+                )
+            },
         ),
     )
 
@@ -139,52 +154,41 @@ fun About(
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                Text(
+                    text = "Version $version",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier,
+                )
+
+                Spacer(modifier = Modifier.height(25.dp))
+
+                Text(
+                    text = "Produly built by:",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier,
+                )
+
                 aboutOptions.forEach { option ->
-                    DroidButton(
+                    AboutCredits(
                         label = option.label,
                         onClick = option.action,
-                        alignLeft = true,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        avatar = option.avatar,
+                        icon = {
+                            DroidIcon(
+                                iconFile = R.drawable.github,
+                                iconSize = 35.dp,
+                                tint = Color.Unspecified,
+                                iconDesc = "Chat Bubble"
+                            )}
                     )
                 }
             }
         }
     }
 }
-/*
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 20.dp)
-        ) {
-            Text(
-                text = "Version $version",
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier,
-            )
-
-            Spacer(modifier = Modifier.height(15.dp))
-
-            Text(
-                text = buildAnnotatedString {
-                    append("Proudly Built by:")
-                    withBulletList {
-                        withBulletListItem { append("Ricardo Martins") }
-                        withBulletListItem { append("Manuel Abreu") }
-                        withBulletListItem { append("Maximus Delorey") }
-                    }
-                },
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier,
-            )
-
-        }
-    }
-*/
 
 @Preview(showBackground = true)
 @Composable
