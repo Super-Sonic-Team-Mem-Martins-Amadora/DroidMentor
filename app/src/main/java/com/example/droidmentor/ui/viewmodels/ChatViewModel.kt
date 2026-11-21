@@ -1,4 +1,4 @@
-package com.example.droidmentor.ui.ViewModels
+package com.example.droidmentor.ui.viewmodels
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -13,28 +13,38 @@ import com.example.droidmentor.core.domain.Chat
 import com.example.droidmentor.core.domain.Msg
 import com.example.droidmentor.ui.viewmodels.viewmodelstates.ChatScreenState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
-class ChatViewModel() : ViewModel() {
+class ChatViewModel(val clipboard: ClipboardManager) : ViewModel() {
 
-    var ball = mutableStateOf(false)
+    var ball = false
+    var click = 0
 
-    val state: StateFlow<ChatScreenState>
-        get() {
-            ChatScreenState.Loading
-        }
+    /*val state: StateFlow<ChatScreenState> = regionState()
+    val state: MutableStateFlow<>*/
 
-    val clipboard = context.getSystemService(ClipboardManager::class.java)
+    // Flow of triggers that are turned into a flow of states, flow of states changes evrytime a trigger sis added on the flow of triggers
+    // state machine is how the flow of states responds to the changes of the flow of triggers
+
+    // Loading
+
+    // Chatting
+    // Ai Answering
+    // Writing
+    // Error
+
+    // Error
     val conversation: Chat = Chat()
 
-    fun onSend(message: String) {
-        if (ball) eightBall(message, conversation, scope) else {
-            viewModel.onSend(message)
+    fun sendMessage(message: String) {
+        if (ball) eightBall(message, conversation) else {
+            TODO()
         }
     }
-    fun onRefresh(messageId: Int) {
+    fun refresh(messageId: Int) {
 
     }
     fun canCopyMessage(messageId: Int): Boolean {
@@ -47,7 +57,7 @@ class ChatViewModel() : ViewModel() {
 
     fun ballClick() {
         click++
-        if (click < 20) return@clickable
+        if (click < 20) return
         if (click == 20) {
             ball = true
         }
@@ -73,7 +83,7 @@ class ChatViewModel() : ViewModel() {
         ): ViewModelProvider.Factory =
             viewModelFactory {
                 initializer {
-                    ChatScreenViewModel()
+                    ChatViewModel(clipboard)
                 }
             }
     }

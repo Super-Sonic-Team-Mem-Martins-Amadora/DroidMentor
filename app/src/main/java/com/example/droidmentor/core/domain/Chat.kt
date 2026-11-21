@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import java.time.LocalDateTime
 
 class Chat(
+    // Change messages this to Flow
     val messages: MutableList<Msg> = mutableStateListOf<Msg>(),
     var title: String = "New Chat",
     val createdDate: LocalDateTime = LocalDateTime.now(),
