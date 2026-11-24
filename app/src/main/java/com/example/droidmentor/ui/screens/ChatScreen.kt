@@ -193,7 +193,7 @@ fun ChatScreen(
                                             letterSpacing = 0.5.sp
                                         ),
                                     )
-                                    Text(
+                                    /*Text(
                                         text = if (!ball) "DroidMentor" else "8Ball",
                                         style = TextStyle(
                                             color = MaterialTheme.colorScheme.primary,
@@ -206,7 +206,7 @@ fun ChatScreen(
                                             lineHeight = 24.sp,
                                             letterSpacing = 0.5.sp
                                         ),
-                                    )
+                                    )*/
                                 }
                             }
                         )
@@ -216,7 +216,7 @@ fun ChatScreen(
             ChatInput(
                 onSend = { msg ->
                     Log.d("CHAT", msg)
-                    viewModel.onSend(msg)
+                    //viewModel.onSend(msg)
                 },
                 placeholder = if (newChat) inputPlaceholder else null,
                 modifier = Modifier

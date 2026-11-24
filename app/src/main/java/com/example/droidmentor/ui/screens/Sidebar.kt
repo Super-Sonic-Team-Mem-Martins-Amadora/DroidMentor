@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,17 +69,65 @@ fun Sidebar(
             onOpenAllChats,
             onOpenChat
         )
-        is SidebarState.Error -> ErrorUI()
+        is SidebarState.Error -> ErrorUI(currentState.error,viewModel::onRetry)
     }
 
 }
 
 @Composable
-fun LoadingUI(){}
+fun LoadingUI(
+    modifier: Modifier = Modifier
+){
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .fillMaxSize()
+
+        ) {
+            CircularProgressIndicator(
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        }
+    }
+
+}
 
 @Composable
-fun ErrorUI(){
-
+fun ErrorUI(
+    error: Throwable,
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(20.dp)
+        ) {
+            Text(
+                text = "Something went wrong",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                text = error.message ?: "Unknown error",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
+            DroidButton(
+                label = "Retry",
+                onClick = onRetry
+            )
+        }
+    }
 }
 
 @Composable
@@ -245,7 +295,7 @@ fun ContentUI(
 
 @Preview(showBackground = true)
 @Composable
-fun SidebarPreview(){
+fun ContentPreview(){
 
     val chats = buildList {
         var i = 1
@@ -259,8 +309,30 @@ fun SidebarPreview(){
         }
     }
     DroidMentorTheme(darkTheme = true) {
-        Sidebar(SidebarState.Content(
-            chats
-        ))
+        ContentUI(
+            chats,
+            rememberLazyListState()
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoadingPreview(){
+
+    DroidMentorTheme(darkTheme = true) {
+        LoadingUI()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ErrorPreview(){
+
+    DroidMentorTheme(darkTheme = true) {
+        ErrorUI(
+            error = Throwable(),
+            onRetry = {}
+        )
     }
 }

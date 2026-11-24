@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
@@ -28,6 +29,7 @@ import androidx.navigation.navArgument
 import com.example.droidmentor.core.domain.Account
 import com.example.droidmentor.core.domain.Chat
 import com.example.droidmentor.core.domain.Msg
+import com.example.droidmentor.dependecies.SidebarDependecies
 import com.example.droidmentor.ui.screens.About
 import com.example.droidmentor.ui.screens.AllChats
 import com.example.droidmentor.ui.screens.ChatScreen
@@ -35,12 +37,21 @@ import com.example.droidmentor.ui.screens.Easter
 import com.example.droidmentor.ui.screens.Settings
 import com.example.droidmentor.ui.screens.Sidebar
 import com.example.droidmentor.ui.theme.DroidMentorTheme
+import com.example.droidmentor.ui.viewmodels.SidebarViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
 
 class MainActivity : ComponentActivity() {
+    private val sidebarDependecies: SidebarDependecies by lazy {
+        sidebarDependecies
+    }
+    private val sidebarViewModel: SidebarViewModel by viewModels {
+        SidebarViewModel.factory(
+            chatRepository = sidebarDependecies.chatRepository
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -70,7 +81,7 @@ class MainActivity : ComponentActivity() {
                     navController,
                     startDestination = Navigation.NewChat.route,
                     modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                    ) {
+                    ) {/*
                     composable(
                         Navigation.NewChat.route) {
 
@@ -126,7 +137,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
-                    }
+                    }*/
                     composable(Navigation.AllChats.route) {
                         AllChats(
                             chatList = conversations,
@@ -165,8 +176,9 @@ class MainActivity : ComponentActivity() {
                             targetOffsetX  = { -it },
                             animationSpec = tween(durationMillis = 700)
                         )}) {
+
                         Sidebar(
-                            chatList = conversations,
+                            viewModel = sidebarViewModel,
                             onCloseSidebar = {
                                 navController.safePopBackStack()
                             },
