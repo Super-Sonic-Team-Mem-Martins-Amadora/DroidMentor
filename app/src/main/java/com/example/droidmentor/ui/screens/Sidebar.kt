@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.droidmentor.R
 import com.example.droidmentor.core.domain.Chat
 import com.example.droidmentor.ui.components.ChatList
@@ -37,19 +39,57 @@ import com.example.droidmentor.ui.components.Header
 import com.example.droidmentor.ui.components.IconButton
 import com.example.droidmentor.ui.components.headerSize
 import com.example.droidmentor.ui.theme.DroidMentorTheme
+import com.example.droidmentor.ui.viewmodels.SidebarViewModel
+import com.example.droidmentor.ui.viewmodels.viewmodelstates.SidebarState
 import java.time.LocalDateTime
 
 @Composable
 fun Sidebar(
-    chatList: List<Chat>,
+    viewModel: SidebarViewModel,
     onCloseSidebar: () -> Unit = {},
     onOpenNewChat: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
     onOpenAllChats: () -> Unit = {},
     onOpenChat: (Int) -> Unit = {},
 ){
+    val currentState = viewModel.state.collectAsStateWithLifecycle().value
 
     val lazyListState = rememberLazyListState()
+
+    when(currentState) {
+        is SidebarState.Loading -> LoadingUI()
+        is SidebarState.Content -> ContentUI(
+            currentState.chatList,
+            lazyListState,
+            onCloseSidebar,
+            onOpenNewChat,
+            onOpenSettings,
+            onOpenAllChats,
+            onOpenChat
+        )
+        is SidebarState.Error -> ErrorUI()
+    }
+
+}
+
+@Composable
+fun LoadingUI(){}
+
+@Composable
+fun ErrorUI(){
+
+}
+
+@Composable
+fun ContentUI(
+    chatList: List<Chat>,
+    lazyListState: LazyListState,
+    onCloseSidebar: () -> Unit = {},
+    onOpenNewChat: () -> Unit = {},
+    onOpenSettings: () -> Unit = {},
+    onOpenAllChats: () -> Unit = {},
+    onOpenChat: (Int) -> Unit = {},
+){
 
     val header = @Composable {
         Header(
@@ -219,6 +259,8 @@ fun SidebarPreview(){
         }
     }
     DroidMentorTheme(darkTheme = true) {
-        Sidebar(chats)
+        Sidebar(SidebarState.Content(
+            chats
+        ))
     }
 }
